@@ -225,12 +225,46 @@ $('adminEntrar').onclick=entrarAdmin;$('adminSenha').onkeydown=e=>{if(e.key==='E
 
 async function atualizar(id,status){
  if(!adminLogado())return;
- const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'},body:JSON.stringify({status})});
- const b=await r.json().catch(()=>[]);
- if(!r.ok||!b.length){alert('Não foi possível atualizar. Verifique as permissões do Supabase.');return}
- const d=denuncias.find(x=>x.id===id);if(d)d.status=status;render();
-}
 
+ const d=denuncias.find(x=>x.id===id);
+
+ if(!d||!d.uuid){
+   alert('Não foi possível identificar esta denúncia. Atualize a página e tente novamente.');
+   return;
+ }
+
+ try{
+   const r=await fetchComTimeout(
+     API+'/denuncias?id=eq.'+encodeURIComponent(d.uuid),
+     {
+       method:'PATCH',
+       headers:{
+         ...HEADERS,
+         Authorization:'Bearer '+token(),
+         Prefer:'return=representation'
+       },
+       body:JSON.stringify({status})
+     }
+   );
+
+   const b=await r.json().catch(()=>[]);
+
+   if(!r.ok||!Array.isArray(b)||!b.length){
+     console.error('Falha ao atualizar:',r.status,b);
+     alert('Não foi possível atualizar o status. Verifique sua sessão administrativa.');
+     return;
+   }
+
+   d.status=b[0].status||status;
+
+   render();
+   atualizarDashboard();
+
+ }catch(e){
+   console.error('Erro ao atualizar status:',e);
+   alert('Erro de conexão ao atualizar o status.');
+ }
+}
 function abrirExclusao(id){
  if(!adminLogado())return;excluirId=id;let d=denuncias.find(x=>x.id===id);
  $('deleteResumo').innerHTML=d?`<b>${esc(d.tipo)}</b><br>Protocolo: ${esc(d.id)}<br>${esc(d.cidade)} - ${esc(d.estado)}`:'';
@@ -238,13 +272,62 @@ function abrirExclusao(id){
 }
 $('deleteCancelar').onclick=()=>{$('deleteModal').classList.remove('open');excluirId=null};
 $('deleteConfirmar').onclick=async()=>{
- if(!excluirId)return;let id=excluirId;$('deleteConfirmar').disabled=true;
+ if(!excluirId)return;
+
+ const id=excluirId;
+ const d=denuncias.find(x=>x.id===id);
+ const uuid=d?.uuid;
+
+ if(!uuid){
+   alert('Não foi possível identificar esta denúncia. Atualize a página e tente novamente.');
+   return;
+ }
+
+ $('deleteConfirmar').disabled=true;
+
  try{
-  const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'}});
-  const b=await r.json().catch(()=>[]);
-  if(!r.ok||!b.length){alert('Não foi possível excluir. Verifique as permissões do Supabase.');return}
-  denuncias=denuncias.filter(d=>d.id!==id);$('deleteModal').classList.remove('open');excluirId=null;render();alert('Denúncia excluída.');
- }finally{$('deleteConfirmar').disabled=false}
+
+   const r=await fetchComTimeout(
+     API+'/denuncias?id=eq.'+encodeURIComponent(uuid),
+     {
+       method:'DELETE',
+       headers:{
+         ...HEADERS,
+         Authorization:'Bearer '+token(),
+         Prefer:'return=representation'
+       }
+     }
+   );
+
+   const b=await r.json().catch(()=>[]);
+
+   if(!r.ok||!Array.isArray(b)||!b.length){
+     console.error('Falha ao excluir:',r.status,b);
+     alert('Não foi possível excluir. Verifique sua sessão administrativa.');
+     return;
+   }
+
+   denuncias=denuncias.filter(x=>x.uuid!==uuid);
+
+   $('deleteModal').classList.remove('open');
+   excluirId=null;
+
+   render();
+   atualizarDashboard();
+
+   alert('Denúncia excluída com sucesso.');
+
+ }catch(e){
+
+   console.error('Erro ao excluir denúncia:',e);
+
+   alert('Erro de conexão ao excluir a denúncia.');
+
+ }finally{
+
+   $('deleteConfirmar').disabled=false;
+
+ }
 };
 
 async function abrirDetalhes(id){
@@ -356,7 +439,16 @@ async function consultarProtocolo(){
   $('protocolBuscar').disabled=true;
   $('protocolResult').innerHTML='<div class="hint">Consultando...</div>';
   try{
-    const r=await fetchComTimeout(API+'/denuncias_publicas?select=protocolo,tipo,local,cidade,estado,data_ocorrencia,descricao,status,registrada_em,anonima&protocolo=eq.'+encodeURIComponent(prot)+'&limit=1',{headers:{apikey:SUPABASE_KEY}});
+    const r=await fetchComTimeout(
+ API+'/denuncias_publicas?select=protocolo,tipo,local,cidade,estado,data_ocorrencia,descricao,status,registrada_em,anonima&protocolo=eq.'+encodeURIComponent(prot)+'&limit=1',
+ {
+   headers:{
+     apikey:SUPABASE_KEY,
+     'Cache-Control':'no-cache'
+   },
+   cache:'no-store'
+ }
+);
     const b=await r.json().catch(()=>[]);
     if(!r.ok)throw new Error();
     if(!b.length){
@@ -446,18 +538,7 @@ function periodoAtivo(d){
   if(ate && d.data_ocorrencia > ate)return false;
   return true;
 }
-function atualizarDashboard(){
-  const adm=adminLogado();
-  $('dashboard').classList.toggle('on',adm);
-  document.body.classList.toggle('admin-mode',adm);
-  if(!adm){$('cityBars').innerHTML='';return}
-  const base=denuncias.filter(periodoAtivo);
-  const cont={};
-  base.forEach(d=>{const c=d.cidade||'Sem cidade';cont[c]=(cont[c]||0)+1});
-  const top=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  const max=top[0]?.[1]||1;
-  $('cityBars').innerHTML=top.length?'<b class="hint">Denúncias por cidade</b>'+top.map(([c,n])=>`<div class="city-row"><span>${esc(c)}</span><div class="city-track"><div class="city-fill" style="width:${Math.max(4,n/max*100)}%"></div></div><b>${n}</b></div>`).join(''):'<div class="hint">Nenhuma denúncia no período selecionado.</div>';
-}
+
 $('periodoDe').onchange=()=>{render();atualizarDashboard()};
 $('periodoAte').onchange=()=>{render();atualizarDashboard()};
 $('filtroCidade').onchange=()=>{render();atualizarDashboard()};$('filtroTipo').onchange=()=>{render();atualizarDashboard()};$('filtroStatus').onchange=()=>{filtro=$('filtroStatus').value||'todas';render();atualizarDashboard()};$('limparPeriodo').onclick=()=>{$('periodoDe').value='';$('periodoAte').value='';render();atualizarDashboard()};$('limparFiltros').onclick=()=>{$('filtroCidade').value='';$('filtroTipo').value='';$('filtroStatus').value='';filtro='todas';render();atualizarDashboard()};
@@ -465,7 +546,16 @@ $('filtroCidade').onchange=()=>{render();atualizarDashboard()};$('filtroTipo').o
 async function carregarDados(){
   let publicData=[];
   try{
-    const r=await fetchComTimeout(API+'/denuncias_publicas?select=*&order=registrada_em.desc',{headers:{apikey:SUPABASE_KEY}});
+    const r=await fetchComTimeout(
+ API+'/denuncias_publicas?select=*&order=registrada_em.desc',
+ {
+   headers:{
+     apikey:SUPABASE_KEY,
+     'Cache-Control':'no-cache'
+   },
+   cache:'no-store'
+ }
+);
     const body=await r.json().catch(()=>[]); if(!r.ok||!Array.isArray(body))throw new Error('HTTP '+r.status);
     publicData=body;
   }catch(e){console.error('Falha ao carregar denúncias públicas:',e);$('lista').innerHTML='<div class="empty"><b>Não foi possível carregar as denúncias agora.</b><br><span class="hint">Tente Atualizar novamente em alguns segundos.</span></div>';$('stats').innerHTML='<div class="stat"><b>—</b><span>aguardando conexão</span></div>';return;}
