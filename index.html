@@ -14,6 +14,23 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 
 .about{max-width:1150px;margin:0 auto 0;padding:0 20px}.about-inner{background:#fff;border:1px solid var(--borda);border-radius:14px;padding:20px;box-shadow:0 8px 24px #402b1208}.about-inner h2{font:normal 1.35rem Georgia,serif;color:var(--verde);margin:0 0 7px}.about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.about-item{border:1px solid var(--borda);border-radius:10px;padding:12px;background:#faf8f2}.about-item b{display:block;color:var(--terra);margin-bottom:3px}.about-item span{font-size:.8rem;color:#77705f}.consult-btn{margin-top:9px;background:#fff;color:var(--verde);border:1px solid #ffffff70;border-radius:8px;padding:9px 13px;font-weight:700}.privacy{display:block;margin-top:7px;padding:9px;border:1px solid #d9d0bf;border-radius:8px;background:#faf8f2;color:#6e6759;font-size:.76rem}.success-card{background:#eef6ee;border:1px solid #a9c5a9;border-radius:10px;padding:13px}.success-protocol{font:700 1.45rem Georgia,serif;color:var(--verde);letter-spacing:.05em;margin:5px 0}.save-protocol{margin-top:8px}.dashboard{display:none;margin:10px 0 14px;padding:12px;border:1px solid var(--borda);border-radius:10px;background:#faf8f2}.dashboard.on{display:block}.dashboard h3{font:normal 1.05rem Georgia,serif;color:var(--verde);margin:0 0 9px}.period{display:flex;gap:7px;flex-wrap:wrap;align-items:end}.period .field{margin:0;min-width:130px;flex:1}.period .field label{font-size:.7rem}.city-bars{display:flex;flex-direction:column;gap:6px;margin-top:10px}.city-row{display:grid;grid-template-columns:115px 1fr 35px;gap:7px;align-items:center;font-size:.74rem}.city-track{height:9px;background:#e3ded3;border-radius:999px;overflow:hidden}.city-fill{height:100%;background:var(--musgo);border-radius:999px}.toolbar .admin-dashboard-control{display:none}.admin-mode .toolbar .admin-dashboard-control{display:block}.logout-action{border:1px solid #ffffff40;background:#ffffff12;color:#fff;border-radius:8px;padding:7px 10px;font-size:.75rem}.map-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.75rem;margin-top:7px}.legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}.timeline{list-style:none;padding:0;margin:8px 0 0}.timeline li{position:relative;padding:7px 0 7px 18px;border-left:2px solid #d8d0c0;margin-left:5px}.timeline li:before{content:"";position:absolute;left:-5px;top:11px;width:8px;height:8px;border-radius:50%;background:var(--musgo)}@media(max-width:700px){.about-grid{grid-template-columns:1fr 1fr}.about{padding:0 12px}.about-inner{padding:15px}main{padding:16px 12px 45px}.panel{padding:15px}.toolbar{align-items:stretch}.toolbar .search{min-width:100%;order:-1}.toolbar .filter{flex:1}.dialog{padding:17px}.stats{gap:7px}.stat{min-width:105px}.period{display:grid;grid-template-columns:1fr 1fr}.period button{grid-column:1/-1}}@media(max-width:430px){.about-grid{grid-template-columns:1fr}.period{grid-template-columns:1fr}.city-row{grid-template-columns:90px 1fr 28px}}
 
+
+/* V6 - estabilidade, galeria, atualização e exportação */
+.admin-tools{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.admin-tools button{font-weight:700}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:8px}
+.gallery-grid img{width:100%;height:120px;object-fit:cover;border-radius:8px;border:1px solid var(--borda);cursor:pointer;transition:.15s}
+.gallery-grid img:hover{transform:scale(1.02)}
+.photo-viewer{max-width:92vw!important;width:900px!important}.photo-viewer img{display:block;max-width:100%;max-height:70vh;margin:auto;border-radius:8px}
+.photo-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}.photo-nav button{min-width:90px}
+.loading{opacity:.65;pointer-events:none}.refresh-status{font-size:.74rem;color:#77705f;margin-left:auto}
+.csv-note{font-size:.72rem;color:#77705f;margin-top:5px}
+@media(max-width:600px){.admin-tools{display:grid;grid-template-columns:1fr 1fr}.refresh-status{grid-column:1/-1;margin-left:0}.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+
+
+/* V7 */
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:10px 0}.kpi{border:1px solid var(--borda);border-radius:10px;padding:10px;background:#fff;cursor:pointer;text-align:left}.kpi:hover{transform:translateY(-1px)}.kpi b{display:block;font:1.35rem Georgia,serif;color:var(--verde)}.kpi span{font-size:.7rem;color:#77705f}.kpi.active{outline:2px solid var(--musgo)}
+.chart{margin-top:12px}.chart-title{font-size:.76rem;font-weight:700;color:var(--terra);margin-bottom:7px}.chart-bars{display:flex;align-items:end;gap:5px;height:115px;border-bottom:1px solid var(--borda);padding:0 4px}.chart-bar{flex:1;min-width:8px;background:var(--musgo);border-radius:4px 4px 0 0;position:relative}.chart-bar span{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:.57rem;white-space:nowrap;color:#77705f}.chart-bar b{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:.58rem;color:var(--terra)}
+.admin-filters{display:grid;grid-template-columns:1.3fr 1.2fr 1fr auto;gap:7px;margin:10px 0}.admin-filters select{width:100%;padding:8px;border:1px solid #cfc6b5;border-radius:8px;background:#fff}.new-badge{display:inline-block;background:#b78b19;color:#fff;border-radius:999px;padding:2px 7px;font-size:.62rem;font-weight:700;margin-left:5px}.note-box{margin-top:10px;padding:10px;border:1px solid #d9d0bf;border-radius:9px;background:#fff}.note-box textarea{width:100%;min-height:80px;padding:9px;border:1px solid #cfc6b5;border-radius:8px;background:#faf8f2;resize:vertical}.note-row{display:flex;gap:7px;align-items:center;justify-content:space-between;margin-top:7px;flex-wrap:wrap}.report-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.report-item{border:1px solid var(--borda);border-radius:9px;padding:9px;background:#faf8f2}.report-item b{display:block;color:var(--verde);font-size:1.05rem}.report-item span{font-size:.7rem;color:#77705f}.map-controls{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.map-controls select{padding:7px;border:1px solid #cfc6b5;border-radius:8px;background:#fff}.submit-loading{opacity:.7;pointer-events:none}@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.admin-filters{grid-template-columns:1fr 1fr}}@media(max-width:520px){.kpi-grid{grid-template-columns:1fr 1fr}.report-summary{grid-template-columns:1fr}.admin-filters{grid-template-columns:1fr}.chart-bars{height:100px}}@media print{body{background:#fff}.modal{position:static;background:#fff}.modal:not(#reportModal){display:none!important}#reportModal{display:block!important}.dialog{max-width:none;max-height:none;box-shadow:none}.dialog-actions,.admin-tools,.admin-dashboard,header,footer{display:none!important}}
 </style>
 </head>
 <body>
@@ -51,7 +68,7 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 <div class="field"><label>Data</label><input id="data" type="date"></div>
 <div class="field"><label>Descrição</label><textarea id="descricao" placeholder="O que aconteceu? Quando? Quem ou o que foi afetado?"></textarea></div>
 <div class="location-box"><b>📍 Localização precisa</b><br><span id="locTexto">Você pode permitir que o celular informe automaticamente o ponto da ocorrência.</span><br><button type="button" class="secondary" id="locBtn">Usar minha localização</button></div>
-<div class="field"><label>📷 Fotos da ocorrência</label><input id="fotos" type="file" accept="image/jpeg,image/png,image/webp" multiple><div class="photo-preview" id="photoPreview"></div><div class="hint">Até 5 fotos, com até 5 MB cada.</div><div class="privacy">🔒 <b>Privacidade:</b> evite enviar fotos com rostos, placas de veículos, documentos ou outros dados pessoais. Fotografe principalmente o problema ambiental.</div></div>
+<div class="field"><label>📷 Fotos da ocorrência</label><input id="fotos" type="file" accept="image/jpeg,image/png,image/webp" multiple><div class="photo-preview" id="photoPreview"></div><div class="hint">Até 3 fotos, com até 3 MB cada.</div><div class="privacy">🔒 <b>Privacidade:</b> evite enviar fotos com rostos, placas de veículos, documentos ou outros dados pessoais. Fotografe principalmente o problema ambiental.</div></div>
 <label style="display:flex;gap:8px;font-size:.84rem;margin:8px 0"><input type="checkbox" id="anonima"> Enviar como denúncia anônima</label>
 <div class="field" id="contatoWrap"><label>Contato (opcional)</label><input id="contato" placeholder="E-mail ou telefone"></div>
 <button class="primary" type="submit">Registrar denúncia</button><div class="msg err" id="erro"></div><div class="msg ok" id="ok"></div>
@@ -60,15 +77,18 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 
 <section class="panel">
 <h2>Denúncias registradas</h2>
-<div class="toolbar"><input class="search" id="busca" placeholder="Pesquisar tipo, cidade ou protocolo..."><button class="filter active" data-filter="todas">Todas</button><button class="filter" data-filter="Em análise">Em análise</button><button class="filter" data-filter="Investigando">Investigando</button><button class="filter" data-filter="Resolvido">Resolvido</button></div>
-<div class="dashboard" id="dashboard">
-<h3>📊 Painel administrativo</h3>
-<div class="period">
-<div class="field"><label>Data inicial</label><input id="periodoDe" type="date"></div>
-<div class="field"><label>Data final</label><input id="periodoAte" type="date"></div>
-<button class="secondary" id="limparPeriodo">Limpar período</button>
+<div class="admin-tools" id="adminTools" style="display:none">
+<button class="secondary" id="refreshAdmin">🔄 Atualizar</button>
+<button class="secondary" id="exportCsv">📥 Exportar CSV</button><button class="secondary" id="reportAdmin">📊 Relatório</button>
+<span class="refresh-status" id="refreshStatus"></span>
 </div>
-<div id="cityBars" class="city-bars"></div>
+<div class="toolbar"><input class="search" id="busca" placeholder="Pesquisar tipo, cidade ou protocolo..."><button class="filter active" data-filter="todas">Todas</button><button class="filter" data-filter="Em análise">Em análise</button><button class="filter" data-filter="Investigando">Investigando</button><button class="filter" data-filter="Resolvido">Resolvido</button></div>
+<div class="admin-dashboard" id="dashboard" style="display:none">
+<h3>📊 Painel de acompanhamento</h3>
+<div class="period"><div class="field"><label>Data inicial</label><input id="periodoDe" type="date"></div><div class="field"><label>Data final</label><input id="periodoAte" type="date"></div><button class="secondary" id="limparPeriodo">Limpar período</button></div>
+<div class="kpi-grid" id="kpis"></div>
+<div class="admin-filters"><select id="filtroCidade"><option value="">Todas as cidades</option></select><select id="filtroTipo"><option value="">Todos os tipos</option></select><select id="filtroStatus"><option value="">Todos os status</option><option>Em análise</option><option>Investigando</option><option>Resolvido</option></select><button class="secondary" id="limparFiltros">Limpar filtros</button></div>
+<div class="chart"><div class="chart-title">📈 Denúncias por data</div><div id="periodChart" class="chart-bars"></div></div><div id="cityBars" class="city-bars"></div><div class="report-summary" id="reportSummary"></div>
 </div>
 <div class="lista" id="lista"></div>
 </section>
@@ -81,8 +101,21 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 
 <div class="modal" id="deleteModal"><div class="dialog"><h2>Excluir denúncia?</h2><p>Esta ação exclui a denúncia do banco de dados e não poderá ser desfeita.</p><div id="deleteResumo"></div><div class="dialog-actions"><button class="secondary" id="deleteCancelar">Cancelar</button><button class="danger" id="deleteConfirmar">Excluir definitivamente</button></div></div></div>
 
-<div class="modal" id="mapModal"><div class="dialog"><h2>Mapa das denúncias</h2><div id="map"></div><div class="map-legend"><span><i class="legend-dot" style="background:#3867a8"></i>Em análise</span><span><i class="legend-dot" style="background:#c17d11"></i>Investigando</span><span><i class="legend-dot" style="background:#2f7d3b"></i>Resolvido</span></div><div class="dialog-actions"><button class="secondary" id="mapFechar">Fechar</button></div></div></div>
+<div class="modal" id="mapModal"><div class="dialog"><h2>Mapa das denúncias</h2><div id="map"></div><div class="map-controls"><select id="mapStatusFilter"><option value="">Todos os status</option><option>Em análise</option><option>Investigando</option><option>Resolvido</option></select><button class="secondary" id="mapFit">🎯 Ajustar mapa</button></div><div class="map-legend"><span><i class="legend-dot" style="background:#3867a8"></i>Em análise</span><span><i class="legend-dot" style="background:#c17d11"></i>Investigando</span><span><i class="legend-dot" style="background:#2f7d3b"></i>Resolvido</span></div><div class="dialog-actions"><button class="secondary" id="mapFechar">Fechar</button></div></div></div>
 
+
+
+<div class="modal" id="reportModal"><div class="dialog"><h2>📊 Relatório administrativo</h2><p>Resumo conforme os filtros ativos.</p><div id="reportContent"></div><div class="dialog-actions"><button class="secondary" id="reportFechar">Fechar</button><button class="primary" id="reportPrint">🖨️ Imprimir / PDF</button></div></div></div>
+<div class="modal" id="photoModal"><div class="dialog photo-viewer">
+<h2>📷 Foto da denúncia</h2>
+<img id="photoViewerImg" alt="Foto da denúncia">
+<div class="photo-nav">
+<button class="secondary" id="photoPrev">← Anterior</button>
+<span id="photoCounter" class="hint"></span>
+<button class="secondary" id="photoNext">Próxima →</button>
+</div>
+<div class="dialog-actions"><button class="primary" id="photoClose">Fechar</button></div>
+</div></div>
 
 <div class="modal" id="successModal"><div class="dialog"><h2>✅ Denúncia registrada</h2>
 <p>Guarde o protocolo para consultar o andamento depois.</p>
@@ -107,6 +140,12 @@ const $=id=>document.getElementById(id);
 estados.forEach(([uf,nome])=>{let o=document.createElement('option');o.value=uf;o.textContent=nome;$('estado').appendChild(o)});
 $('data').value=new Date().toISOString().slice(0,10);
 
+
+function fetchComTimeout(url,opts={},ms=15000){
+ const ctrl=new AbortController();const t=setTimeout(()=>ctrl.abort(),ms);
+ return fetch(url,{...opts,signal:ctrl.signal}).finally(()=>clearTimeout(t));
+}
+
 function esc(v=''){return String(v).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function adminLogado(){return sessionStorage.getItem('admin_auth')==='1'&&!!sessionStorage.getItem('admin_token')}
 function token(){return sessionStorage.getItem('admin_token')}
@@ -129,14 +168,17 @@ $('locBtn').onclick=()=>{
 $('fotos').onchange=()=>{
  const files=[...$('fotos').files];
  $('photoPreview').innerHTML='';
- files.slice(0,5).forEach(f=>{if(f.size>5242880)return;let u=URL.createObjectURL(f);let img=document.createElement('img');img.src=u;$('photoPreview').appendChild(img)});
+ files.slice(0,3).forEach(f=>{if(f.size>3145728)return;let u=URL.createObjectURL(f);let img=document.createElement('img');img.src=u;$('photoPreview').appendChild(img)});
 };
 
 $('form').onsubmit=e=>{
  e.preventDefault();
  const d={tipo:$('tipo').value,local:$('local').value.trim(),cidade:$('cidade').value.trim(),estado:$('estado').value,data:$('data').value,descricao:$('descricao').value.trim(),anonima:$('anonima').checked,contato:$('anonima').checked?'':$('contato').value.trim(),latitude:pendente?.latitude??null,longitude:pendente?.longitude??null};
+ const files=[...$('fotos').files];
  if(!d.tipo||!d.local||!d.cidade||!d.estado||!d.data||!d.descricao){$('erro').textContent='Preencha tipo, local, cidade, estado, data e descrição.';$('erro').style.display='block';return}
- const files=[...$('fotos').files].slice(0,5);if(files.some(f=>f.size>5242880)){ $('erro').textContent='Cada foto deve ter no máximo 5 MB.';$('erro').style.display='block';return}
+ if(files.length>3){$('erro').textContent='Você pode enviar no máximo 3 fotos.';$('erro').style.display='block';return}
+ if(files.some(f=>f.size>3145728)){$('erro').textContent='Cada foto deve ter no máximo 3 MB.';$('erro').style.display='block';return}
+ if(files.some(f=>!['image/jpeg','image/png','image/webp'].includes(f.type))){$('erro').textContent='As fotos devem estar em JPG, PNG ou WebP.';$('erro').style.display='block';return}
  $('erro').style.display='none';pendente={...d,files};
  $('resumo').innerHTML=`<b>${esc(d.tipo)}</b><br>${esc(d.cidade)} - ${esc(d.estado)}<br>${esc(d.local)}<br>${dataBR(d.data)}<br>${d.latitude!=null?'📍 Localização precisa incluída':'📍 Sem localização precisa'}<br>${files.length?'📷 '+files.length+' foto(s)':'📷 Sem fotos'}`;
  $('confirmModal').classList.add('open');
@@ -144,31 +186,20 @@ $('form').onsubmit=e=>{
 
 $('cancelar').onclick=()=>{$('confirmModal').classList.remove('open')};
 
-async function enviarFotos(files,prot){
- const urls=[];
- for(let i=0;i<files.length;i++){
-   const f=files[i];const ext=(f.name.split('.').pop()||'jpg').toLowerCase();
-   const path=prot+'/'+crypto.randomUUID()+'.'+ext;
-   const r=await fetch(SUPABASE_URL+'/storage/v1/object/denuncias/'+path,{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':f.type||'image/jpeg','x-upsert':'false'},body:f});
-   if(!r.ok)throw new Error('Falha ao enviar foto');
-   urls.push(SUPABASE_URL+'/storage/v1/object/public/denuncias/'+path);
- }
- return urls;
-}
+async function enviarFotos(files,prot){const urls=[];for(let i=0;i<Math.min(files.length,3);i++){const f=files[i],ext=(f.name.split('.').pop()||'jpg').toLowerCase(),path=prot+'/'+crypto.randomUUID()+'.'+ext;const r=await fetchComTimeout(SUPABASE_URL+'/storage/v1/object/denuncias/'+path,{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':f.type||'image/jpeg','x-upsert':'false'},body:f});if(!r.ok)throw new Error('Falha ao enviar foto');urls.push(SUPABASE_URL+'/storage/v1/object/public/denuncias/'+path)}return urls}
 
 $('confirmar').onclick=async()=>{
- if(!pendente)return;
+ if(!pendente)return;const btn=$('confirmar');if(btn.dataset.enviando==='1')return;btn.dataset.enviando='1';btn.disabled=true;btn.classList.add('submit-loading');btn.textContent='Enviando...';$('erro').style.display='none';
  const d=pendente,nome=estados.find(x=>x[0]===d.estado)?.[1]||d.estado,prot=protocolo();
- $('confirmar').disabled=true;
  try{
-   const fotos=await enviarFotos(d.files||[],prot);
-   const payload={tipo:d.tipo,local:d.local,cidade:d.cidade,estado:nome,data_ocorrencia:d.data,descricao:d.descricao,anonima:d.anonima,contato:d.contato||null,protocolo:prot,status:'Em análise',latitude:d.latitude,longitude:d.longitude,fotos};
-   const r=await fetch(API+'/denuncias',{method:'POST',headers:{...HEADERS,Prefer:'return=minimal'},body:JSON.stringify(payload)});
-   if(!r.ok)throw new Error();
-   $('confirmModal').classList.remove('open');mostrarSucesso(prot);$('form').reset();$('photoPreview').innerHTML='';$('data').value=new Date().toISOString().slice(0,10);$('contatoWrap').style.display='block';pendente=null;
-   $('ok').textContent='Denúncia registrada com sucesso. Protocolo: '+prot;$('ok').style.display='block';setTimeout(()=>$('ok').style.display='none',6000);await carregar();
- }catch(e){$('erro').textContent='Não foi possível registrar. Verifique sua conexão e tente novamente.';$('erro').style.display='block'}finally{$('confirmar').disabled=false}
+  const fotos=await enviarFotos(d.files||[],prot);const payload={tipo:d.tipo,local:d.local,cidade:d.cidade,estado:nome,data_ocorrencia:d.data,descricao:d.descricao,anonima:d.anonima,contato:d.contato||null,protocolo:prot,status:'Em análise',latitude:d.latitude,longitude:d.longitude,fotos};
+  const r=await fetchComTimeout(API+'/denuncias',{method:'POST',headers:{...HEADERS,Prefer:'return=minimal'},body:JSON.stringify(payload)});const txt=await r.text();if(!r.ok)throw new Error(txt||('HTTP '+r.status));
+  $('confirmModal').classList.remove('open');$('form').reset();$('photoPreview').innerHTML='';$('data').value=new Date().toISOString().slice(0,10);$('contatoWrap').style.display='block';pendente=null;mostrarSucesso(prot);$('ok').textContent='Denúncia registrada com sucesso. Protocolo: '+prot;$('ok').style.display='block';setTimeout(()=>$('ok').style.display='none',6000);await carregarDados();
+ }catch(e){console.error('Erro ao registrar denúncia:',e);$('erro').textContent='Não foi possível registrar a denúncia. Nenhum protocolo foi confirmado. Verifique a conexão e tente novamente.';$('erro').style.display='block';}
+ finally{btn.dataset.enviando='0';btn.disabled=false;btn.classList.remove('submit-loading');btn.textContent='Confirmar'}
 };
+
+$('fotos').onchange=()=>{const input=$('fotos'),files=[...input.files];if(files.length>3){alert('Selecione no máximo 3 fotos.');input.value='';$('photoPreview').innerHTML='';return}const bad=files.find(f=>f.size>3145728||!['image/jpeg','image/png','image/webp'].includes(f.type));if(bad){alert('Cada foto deve ser JPG, PNG ou WebP e ter no máximo 3 MB.');input.value='';$('photoPreview').innerHTML='';return}$('photoPreview').innerHTML='';files.forEach(f=>{const img=document.createElement('img');img.src=URL.createObjectURL(f);$('photoPreview').appendChild(img)})};
 
 $('adminBtn').onclick=()=>{$('adminErro').style.display='none';$('adminModal').classList.add('open');$('adminEmail').focus()};
 $('adminFechar').onclick=()=>$('adminModal').classList.remove('open');
@@ -176,7 +207,7 @@ $('adminFechar').onclick=()=>$('adminModal').classList.remove('open');
 
 $('adminLogout').onclick=()=>{
   sessionStorage.removeItem('admin_auth');sessionStorage.removeItem('admin_token');sessionStorage.removeItem('admin_refresh');
-  $('adminLogout').style.display='none';render();carregar();
+  $('adminLogout').style.display='none';render();carregarDados();atualizarFerramentasAdmin();
 };
 
 async function entrarAdmin(){
@@ -184,24 +215,24 @@ async function entrarAdmin(){
  if(!email||!password){$('adminErro').textContent='Informe e-mail e senha.';$('adminErro').style.display='block';return}
  $('adminEntrar').disabled=true;
  try{
-   const r=await fetch(AUTH,{method:'POST',headers:HEADERS,body:JSON.stringify({email,password})});const d=await r.json().catch(()=>({}));
+   const r=await fetchComTimeout(AUTH,{method:'POST',headers:HEADERS,body:JSON.stringify({email,password})});const d=await r.json().catch(()=>({}));
    if(!r.ok||!d.access_token)throw new Error();
    sessionStorage.setItem('admin_auth','1');sessionStorage.setItem('admin_token',d.access_token);if(d.refresh_token)sessionStorage.setItem('admin_refresh',d.refresh_token);
-   $('adminModal').classList.remove('open');$('adminLogout').style.display='inline-block';render();carregar();alert('Login administrativo realizado.');
+   $('adminModal').classList.remove('open');$('adminLogout').style.display='inline-block';render();carregarDados();alert('Login administrativo realizado.');
  }catch(e){$('adminErro').textContent='E-mail ou senha inválidos.';$('adminErro').style.display='block'}finally{$('adminEntrar').disabled=false}
 }
 $('adminEntrar').onclick=entrarAdmin;$('adminSenha').onkeydown=e=>{if(e.key==='Enter')entrarAdmin()};
 
 async function atualizar(id,status){
  if(!adminLogado())return;
- const r=await fetch(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'},body:JSON.stringify({status})});
+ const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'},body:JSON.stringify({status})});
  const b=await r.json().catch(()=>[]);
  if(!r.ok||!b.length){alert('Não foi possível atualizar. Verifique as permissões do Supabase.');return}
- const d=denuncias.find(x=>x.uuid===id);if(d)d.status=status;render();
+ const d=denuncias.find(x=>x.id===id);if(d)d.status=status;render();
 }
 
 function abrirExclusao(id){
- if(!adminLogado())return;excluirId=id;let d=denuncias.find(x=>x.uuid===id);
+ if(!adminLogado())return;excluirId=id;let d=denuncias.find(x=>x.id===id);
  $('deleteResumo').innerHTML=d?`<b>${esc(d.tipo)}</b><br>Protocolo: ${esc(d.id)}<br>${esc(d.cidade)} - ${esc(d.estado)}`:'';
  $('deleteModal').classList.add('open');
 }
@@ -209,24 +240,35 @@ $('deleteCancelar').onclick=()=>{$('deleteModal').classList.remove('open');exclu
 $('deleteConfirmar').onclick=async()=>{
  if(!excluirId)return;let id=excluirId;$('deleteConfirmar').disabled=true;
  try{
-  const r=await fetch(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'}});
+  const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'}});
   const b=await r.json().catch(()=>[]);
   if(!r.ok||!b.length){alert('Não foi possível excluir. Verifique as permissões do Supabase.');return}
-  denuncias=denuncias.filter(d=>d.uuid!==id);$('deleteModal').classList.remove('open');excluirId=null;render();alert('Denúncia excluída.');
+  denuncias=denuncias.filter(d=>d.id!==id);$('deleteModal').classList.remove('open');excluirId=null;render();alert('Denúncia excluída.');
  }finally{$('deleteConfirmar').disabled=false}
 };
 
 async function abrirDetalhes(id){
- if(!adminLogado())return;let d=denuncias.find(x=>x.uuid===id);if(!d)return;
- let h=`<b>${esc(d.tipo)}</b><br>Protocolo: ${esc(d.id)}<br>Status: ${esc(d.status)}<br>Data: ${dataBR(d.data)}<br>`;
- if(d.latitude!=null&&d.longitude!=null)h+=`📍 ${d.latitude.toFixed(6)}, ${d.longitude.toFixed(6)} — <a target="_blank" href="https://www.google.com/maps?q=${d.latitude},${d.longitude}">abrir no mapa</a><br>`;
- if(d.fotos?.length)h+='<div style="margin-top:7px">'+d.fotos.map(u=>`<a href="${esc(u)}" target="_blank"><img src="${esc(u)}"></a>`).join('')+'</div>';
- $('detail-'+CSS.escape(id)).innerHTML=h;$('detail-'+CSS.escape(id)).style.display=$('detail-'+CSS.escape(id)).style.display==='none'?'block':'none';
+ if(!adminLogado())return;let d=denuncias.find(x=>x.id===id);if(!d)return;
+ let h=`<b>${esc(d.tipo)}</b><br>
+ Protocolo: ${esc(d.id)}<br>
+ Status: ${esc(d.status)}<br>
+ Data da ocorrência: ${dataBR(d.data)}<br>
+ Cidade/UF: ${esc(d.cidade)} - ${esc(d.estado)}<br>
+ Local: ${esc(d.local)}<br>
+ Contato: ${d.contato?esc(d.contato):'Não informado'}<br>
+ Descrição: <div style="white-space:pre-wrap;margin-top:4px">${esc(d.descricao)}</div>`;
+ if(d.latitude!=null&&d.longitude!=null)h+=`<div style="margin-top:7px">📍 ${d.latitude.toFixed(6)}, ${d.longitude.toFixed(6)} — <a target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps?q=${d.latitude},${d.longitude}">abrir no Google Maps</a></div>`;
+ if(Array.isArray(d.fotos)&&d.fotos.length){
+   h+='<div style="margin-top:10px"><b>📷 Fotos anexadas ('+d.fotos.length+')</b><div class="gallery-grid">'+d.fotos.map((u,i)=>`<img src="${esc(u)}" loading="lazy" alt="Foto ${i+1} da denúncia" onclick="abrirFoto('${esc(d.id)}',${i})">`).join('')+'</div></div>';
+ }else{
+   h+='<div class="hint" style="margin-top:8px">📷 Nenhuma foto anexada.</div>';
+ }
+ const box=$('detail-'+CSS.escape(id));const abrir=box.style.display==='none';box.innerHTML=h;box.style.display=abrir?'block':'none';if(abrir)box.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 async function abrirHistorico(id){
  if(!adminLogado())return;
- const r=await fetch(API+'/denuncia_historico?select=status,criado_em&denuncia_id=eq.'+encodeURIComponent(denuncias.find(d=>d.uuid===id)?.uuid||'')+'&order=criado_em.asc',{headers:{...HEADERS,Authorization:'Bearer '+token()}});
+ const r=await fetchComTimeout(API+'/denuncia_historico?select=status,criado_em&denuncia_id=eq.'+encodeURIComponent(denuncias.find(d=>d.id===id)?.uuid||'')+'&order=criado_em.asc',{headers:{...HEADERS,Authorization:'Bearer '+token()}});
  const b=await r.json().catch(()=>[]);
  const box=$('history-'+CSS.escape(id));box.innerHTML=b.length?'<b>Histórico</b><ul class="history">'+b.map(x=>`<li>${esc(x.status)} — ${new Date(x.criado_em).toLocaleString('pt-BR')}</li>`).join('')+'</ul>':'Histórico indisponível para esta denúncia.';box.style.display='block';
 }
@@ -237,27 +279,57 @@ function abrirMapa(){
  setTimeout(()=>{
   if(!mapa)mapa=L.map('map').setView([-8.5,-37.6],7),L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(mapa);
   else mapa.eachLayer(l=>{if(l instanceof L.Marker)mapa.removeLayer(l)});
-  denuncias.filter(d=>d.latitude!=null&&d.longitude!=null).forEach(d=>{const cor=d.status==='Resolvido'?'#2f7d3b':d.status==='Investigando'?'#c17d11':'#3867a8';L.circleMarker([d.latitude,d.longitude],{radius:9,color:cor,fillColor:cor,fillOpacity:.8,weight:2}).addTo(mapa).bindPopup(`<b>${esc(d.tipo)}</b><br>${esc(d.id)}<br>${statusIcon(d.status)} ${esc(d.status)}`)});
+  denuncias.filter(d=>d.latitude!=null&&d.longitude!=null&&(!$('mapStatusFilter')||!$('mapStatusFilter').value||d.status===$('mapStatusFilter').value)).forEach(d=>{const cor=d.status==='Resolvido'?'#2f7d3b':d.status==='Investigando'?'#c17d11':'#3867a8';L.circleMarker([d.latitude,d.longitude],{radius:9,color:cor,fillColor:cor,fillOpacity:.8,weight:2}).addTo(mapa).bindPopup(`<b>${esc(d.tipo)}</b><br>${esc(d.id)}<br>${statusIcon(d.status)} ${esc(d.status)}`)});
   mapa.invalidateSize();
  },150);
 }
-$('mapFechar').onclick=()=>$('mapModal').classList.remove('open');
+$('mapFechar').onclick=()=>$('mapModal').classList.remove('open');$('mapStatusFilter')?.addEventListener('change',()=>abrirMapa());$('mapFit')?.addEventListener('click',()=>mapa&&mapa.invalidateSize());
+
+function lidos(){try{return JSON.parse(localStorage.getItem('denuncias_lidas')||'[]')}catch(e){return[]}}
+function foiLida(id){return lidos().includes(id)}
+function marcarLida(id){const a=lidos();if(!a.includes(id)){a.push(id);localStorage.setItem('denuncias_lidas',JSON.stringify(a))}}
+function dadosFiltradosPainel(){const c=$('filtroCidade')?.value||'',t=$('filtroTipo')?.value||'',s=$('filtroStatus')?.value||'';return denuncias.filter(d=>periodoAtivo(d)&&(!c||d.cidade===c)&&(!t||d.tipo===t)&&(!s||d.status===s))}
+function popularFiltrosAdmin(){if(!adminLogado())return;const c=$('filtroCidade'),t=$('filtroTipo');if(!c||!t)return;const cv=c.value,tv=t.value;const cidades=[...new Set(denuncias.map(d=>d.cidade).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));const tipos=[...new Set(denuncias.map(d=>d.tipo).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));c.innerHTML='<option value="">Todas as cidades</option>'+cidades.map(x=>`<option value="${esc(x).replace(/"/g,'&quot;')}">${esc(x)}</option>`).join('');t.innerHTML='<option value="">Todos os tipos</option>'+tipos.map(x=>`<option value="${esc(x).replace(/"/g,'&quot;')}">${esc(x)}</option>`).join('');c.value=cidades.includes(cv)?cv:'';t.value=tipos.includes(tv)?tv:''}
+function renderGrafico(base){const el=$('periodChart');if(!el)return;const by={};base.forEach(d=>{const k=d.data||d.registradaEm?.slice(0,10);if(k)by[k]=(by[k]||0)+1});let e=Object.entries(by).sort((a,b)=>a[0].localeCompare(b[0]));if(e.length>14)e=e.slice(-14);const max=Math.max(...e.map(x=>x[1]),1);el.innerHTML=e.length?e.map(([k,n])=>`<div class="chart-bar" title="${esc(dataBR(k))}: ${n}" style="height:${Math.max(10,n/max*95)}%"><b>${n}</b><span>${esc(k.slice(5).replace('-','/'))}</span></div>`).join(''):'<div class="hint" style="align-self:center">Sem dados no período.</div>'}
+function atualizarDashboard(){const adm=adminLogado(),dash=$('dashboard');if(!dash)return;dash.style.display=adm?'block':'none';if(!adm)return;popularFiltrosAdmin();const base=dadosFiltradosPainel();const ana=base.filter(d=>d.status==='Em análise').length,inv=base.filter(d=>d.status==='Investigando').length,res=base.filter(d=>d.status==='Resolvido').length,novas=base.filter(d=>!foiLida(d.id)).length,loc=base.filter(d=>d.latitude!=null&&d.longitude!=null).length;$('kpis').innerHTML=[['todas','📋',base.length,'Total'],['Em análise','🟡',ana,'Em análise'],['Investigando','🔵',inv,'Investigando'],['Resolvido','🟢',res,'Resolvidas'],['novas','🆕',novas,'Não visualizadas'],['local','📍',loc,'Com localização']].map(x=>`<button class="kpi ${x[0]===filtro?'active':''}" onclick="clicarKpi('${x[0]}')"><b>${x[1]} ${x[2]}</b><span>${x[3]}</span></button>`).join('');const cont={};base.forEach(d=>{const c=d.cidade||'Sem cidade';cont[c]=(cont[c]||0)+1});const top=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,8),max=top[0]?.[1]||1;$('cityBars').innerHTML=top.length?'<b class="hint">Denúncias por cidade</b>'+top.map(([c,n])=>`<div class="city-row"><span>${esc(c)}</span><div class="city-track"><div class="city-fill" style="width:${Math.max(4,n/max*100)}%"></div></div><b>${n}</b></div>`).join(''):'<div class="hint">Nenhuma denúncia no período.</div>';renderGrafico(base);$('reportSummary').innerHTML=`<div class="report-item"><b>${base.length}</b><span>Total no período</span></div><div class="report-item"><b>${base.filter(d=>Array.isArray(d.fotos)&&d.fotos.length).length}</b><span>Com fotos</span></div><div class="report-item"><b>${loc}</b><span>Com localização</span></div>`}
+function clicarKpi(k){if(k==='novas'||k==='local'||k==='todas'){filtro='todas';$('filtroStatus').value=''}else{filtro=k;$('filtroStatus').value=k}document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===filtro));render();atualizarDashboard()}
+async function salvarNota(id){if(!adminLogado())return;const d=denuncias.find(x=>x.id===id),ta=$('nota-'+CSS.escape(id));if(!d||!ta)return;const btn=ta.parentElement.querySelector('button');btn.disabled=true;try{const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(d.uuid),{method:'PATCH',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'},body:JSON.stringify({observacao_admin:ta.value.trim()||null})});const b=await r.json().catch(()=>[]);if(!r.ok||!Array.isArray(b)||!b.length)throw new Error();d.observacao_admin=ta.value.trim()||null;marcarLida(id);alert('Observação salva.')}catch(e){console.error(e);alert('Não foi possível salvar a observação.')}finally{btn.disabled=false}}
+function abrirNota(id){if(adminLogado())abrirDetalhes(id)}
 
 function render(){
- $('adminLogout').style.display=adminLogado()?'inline-block':'none';
+ $('adminLogout').style.display=adminLogado()?'inline-block':'none';atualizarFerramentasAdmin();
  const q=$('busca').value.toLowerCase().trim(),adm=adminLogado();
- const vis=denuncias.filter(d=>(filtro==='todas'||d.status===filtro)&&(!q||[d.tipo,d.cidade,d.estado,d.id,d.local].join(' ').toLowerCase().includes(q)));
+ const vis=denuncias.filter(d=>(filtro==='todas'||d.status===filtro)&&(!q||[d.tipo,d.cidade,d.estado,d.id,d.local].join(' ').toLowerCase().includes(q))&&(!adm||(!$('filtroCidade').value||d.cidade===$('filtroCidade').value))&&(!adm||(!$('filtroTipo').value||d.tipo===$('filtroTipo').value))&&(!adm||(!$('filtroStatus').value||d.status===$('filtroStatus').value)));
  $('lista').innerHTML=vis.length?vis.map(d=>`<article class="card ${classe(d.status)}">
- <div class="top"><div><h3>${esc(d.tipo)}</h3><div class="protocol">Protocolo ${esc(d.id)}</div></div>${adm?`<select class="status" onchange="atualizar('${esc(d.id)}',this.value)"><option ${d.status==='Em análise'?'selected':''}>Em análise</option><option ${d.status==='Investigando'?'selected':''}>Investigando</option><option ${d.status==='Resolvido'?'selected':''}>Resolvido</option></select>`:''}</div>
+ <div class="top"><div><h3>${esc(d.tipo)}</h3><div class="protocol">Protocolo ${esc(d.id)} ${adm&&!foiLida(d.id)?'<span class="new-badge">🆕 NOVA</span>':''}</div></div>${adm?`<select class="status" onchange="atualizar('${esc(d.id)}',this.value)"><option ${d.status==='Em análise'?'selected':''}>Em análise</option><option ${d.status==='Investigando'?'selected':''}>Investigando</option><option ${d.status==='Resolvido'?'selected':''}>Resolvido</option></select>`:''}</div>
  <div class="meta">${esc(d.local)} · ${esc(d.cidade)} - ${esc(d.estado)} · ${dataBR(d.data)} · ${d.anonima?'Anônima':d.contato?'Contato informado':'Sem contato'}</div>
  <div class="desc">${esc(d.descricao)}</div>
- <div class="foot"><span class="tag">${esc(d.status)}</span>${adm?`<div class="admin-actions">${d.latitude!=null&&d.longitude!=null?'<button class="admin-action" onclick="abrirMapa()">🗺️ Mapa</button>':''}<button class="admin-action" onclick="abrirDetalhes('${esc(d.id)}')">📄 Detalhes</button><button class="admin-action" onclick="abrirHistorico('${esc(d.id)}')">🕒 Histórico</button><button class="admin-action delete-action" onclick="abrirExclusao('${esc(d.id)}')">🗑️ Excluir</button></div>`:''}</div>
+ <div class="foot"><span class="tag">${esc(d.status)}</span>${adm?`<div class="admin-actions">${d.latitude!=null&&d.longitude!=null?'<button class="admin-action" onclick="abrirMapa()">🗺️ Mapa</button>':''}<button class="admin-action" onclick="abrirDetalhes('${esc(d.id)}')">📄 Detalhes</button><button class="admin-action" onclick="abrirHistorico('${esc(d.id)}')">🕒 Histórico</button><button class="admin-action" onclick="abrirNota('${esc(d.id)}')">📝 Observação</button><button class="admin-action delete-action" onclick="abrirExclusao('${esc(d.id)}')">🗑️ Excluir</button></div>`:''}</div>
  <div class="detail" id="detail-${esc(d.id)}" style="display:none"></div><div class="detail" id="history-${esc(d.id)}" style="display:none"></div>
  </article>`).join(''):'<div class="empty"><b>Nenhuma denúncia encontrada</b><br>Altere a pesquisa ou os filtros.</div>';
  const total=denuncias.length,res=denuncias.filter(d=>d.status==='Resolvido').length,inv=denuncias.filter(d=>d.status==='Investigando').length,ana=denuncias.filter(d=>d.status==='Em análise').length;
  $('stats').innerHTML=`<div class="stat"><b>${total}</b><span>registradas</span></div><div class="stat"><b>${ana}</b><span>em análise</span></div><div class="stat"><b>${inv}</b><span>investigando</span></div><div class="stat"><b>${res}</b><span>resolvidas</span></div>${adm?`<div class="stat"><b>🗺️</b><span><button class="admin-link" style="margin:0;padding:4px 8px" onclick="abrirMapa()">Mapa</button></span></div>`:''}`;
 }
 
+
+
+let fotosViewer=[],fotoIndex=0;
+function abrirFoto(protocolo,index){
+  const d=denuncias.find(x=>x.id===protocolo);
+  if(!d||!Array.isArray(d.fotos)||!d.fotos.length)return;
+  fotosViewer=d.fotos.slice();fotoIndex=Math.max(0,Math.min(index,fotosViewer.length-1));
+  atualizarFotoViewer();$('photoModal').classList.add('open');
+}
+function atualizarFotoViewer(){
+  if(!fotosViewer.length)return;
+  $('photoViewerImg').src=fotosViewer[fotoIndex];
+  $('photoCounter').textContent=`${fotoIndex+1} de ${fotosViewer.length}`;
+  $('photoPrev').disabled=fotosViewer.length<=1;
+  $('photoNext').disabled=fotosViewer.length<=1;
+}
+$('photoPrev').onclick=()=>{if(!fotosViewer.length)return;fotoIndex=(fotoIndex-1+fotosViewer.length)%fotosViewer.length;atualizarFotoViewer()};
+$('photoNext').onclick=()=>{if(!fotosViewer.length)return;fotoIndex=(fotoIndex+1)%fotosViewer.length;atualizarFotoViewer()};
+$('photoClose').onclick=()=>$('photoModal').classList.remove('open');
 
 function abrirConsulta(){
   $('protocolResult').innerHTML='';
@@ -276,7 +348,7 @@ function statusText(s){
   return s==='Resolvido'?'Resolvido':s==='Investigando'?'Investigando':'Em análise';
 }
 async function consultarProtocolo(){
-  const prot=$('protocolInput').value.trim().toUpperCase();
+  const prot=$('protocolInput').value.trim().toUpperCase().replace(/\s+/g,'');
   if(!/^DA-[A-Z0-9]{8}$/.test(prot)){
     $('protocolResult').innerHTML='<div class="msg err" style="display:block">Digite um protocolo no formato DA-XXXXXXXX.</div>';
     return;
@@ -284,7 +356,7 @@ async function consultarProtocolo(){
   $('protocolBuscar').disabled=true;
   $('protocolResult').innerHTML='<div class="hint">Consultando...</div>';
   try{
-    const r=await fetch(API+'/denuncias_publicas?select=protocolo,tipo,local,cidade,estado,data_ocorrencia,descricao,status,registrada_em,anonima&protocolo=eq.'+encodeURIComponent(prot)+'&limit=1',{headers:{apikey:SUPABASE_KEY}});
+    const r=await fetchComTimeout(API+'/denuncias_publicas?select=protocolo,tipo,local,cidade,estado,data_ocorrencia,descricao,status,registrada_em,anonima&protocolo=eq.'+encodeURIComponent(prot)+'&limit=1',{headers:{apikey:SUPABASE_KEY}});
     const b=await r.json().catch(()=>[]);
     if(!r.ok)throw new Error();
     if(!b.length){
@@ -329,6 +401,45 @@ function baixarProtocolo(){
 }
 $('saveProtocol').onclick=baixarProtocolo;
 
+
+function atualizarFerramentasAdmin(){
+  const ok=adminLogado();
+  $('adminTools').style.display=ok?'flex':'none';
+}
+async function atualizarAdminManual(){
+  if(!adminLogado())return;
+  const btn=$('refreshAdmin'),status=$('refreshStatus');
+  btn.disabled=true;status.textContent='Atualizando...';
+  try{
+    await carregarDados();
+    status.textContent='Atualizado às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+  }catch(e){
+    status.textContent='Não foi possível atualizar.';
+  }finally{btn.disabled=false}
+}
+function csvCell(v){
+  const s=String(v??'').replace(/"/g,'""');
+  return '"'+s+'"';
+}
+function exportarCSV(){
+  if(!adminLogado()||!denuncias.length)return;
+  const cols=['Protocolo','Tipo','Local','Cidade','Estado','Data da ocorrência','Status','Anônima','Contato','Descrição','Latitude','Longitude','Fotos','Observação interna','Registrada em'];
+  const rows=denuncias.map(d=>[
+    d.id,d.tipo,d.local,d.cidade,d.estado,d.data,d.status,d.anonima?'Sim':'Não',
+    d.contato||'',d.descricao,d.latitude??'',d.longitude??'',
+    Array.isArray(d.fotos)?d.fotos.length:0,d.observacao_admin||'',d.registradaEm||''
+  ]);
+  const csv='\uFEFF'+[cols,...rows].map(r=>r.map(csvCell).join(';')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='denuncias-ambientais-'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+$('refreshAdmin').onclick=atualizarAdminManual;
+$('exportCsv').onclick=exportarCSV;
+
+$('reportAdmin').onclick=()=>{if(!adminLogado())return;const b=dadosFiltradosPainel();$('reportContent').innerHTML=`<div class="report-summary"><div class="report-item"><b>${b.length}</b><span>Total</span></div><div class="report-item"><b>${b.filter(d=>d.status==='Em análise').length}</b><span>Em análise</span></div><div class="report-item"><b>${b.filter(d=>d.status==='Investigando').length}</b><span>Investigando</span></div><div class="report-item"><b>${b.filter(d=>d.status==='Resolvido').length}</b><span>Resolvidas</span></div><div class="report-item"><b>${b.filter(d=>Array.isArray(d.fotos)&&d.fotos.length).length}</b><span>Com fotos</span></div><div class="report-item"><b>${b.filter(d=>d.latitude!=null&&d.longitude!=null).length}</b><span>Com localização</span></div></div><p class="hint">Gerado em ${new Date().toLocaleString('pt-BR')}.</p>`;$('reportModal').classList.add('open')};$('reportFechar').onclick=()=>$('reportModal').classList.remove('open');$('reportPrint').onclick=()=>window.print();
 function periodoAtivo(d){
   const de=$('periodoDe').value, ate=$('periodoAte').value;
   if(de && d.data_ocorrencia < de)return false;
@@ -349,26 +460,35 @@ function atualizarDashboard(){
 }
 $('periodoDe').onchange=()=>{render();atualizarDashboard()};
 $('periodoAte').onchange=()=>{render();atualizarDashboard()};
-$('limparPeriodo').onclick=()=>{$('periodoDe').value='';$('periodoAte').value='';render();atualizarDashboard()};
+$('filtroCidade').onchange=()=>{render();atualizarDashboard()};$('filtroTipo').onchange=()=>{render();atualizarDashboard()};$('filtroStatus').onchange=()=>{filtro=$('filtroStatus').value||'todas';render();atualizarDashboard()};$('limparPeriodo').onclick=()=>{$('periodoDe').value='';$('periodoAte').value='';render();atualizarDashboard()};$('limparFiltros').onclick=()=>{$('filtroCidade').value='';$('filtroTipo').value='';$('filtroStatus').value='';filtro='todas';render();atualizarDashboard()};
 
-async function carregar(){
- try{
-  const r=await fetch(API+'/denuncias_publicas?select=*&order=registrada_em.desc',{headers:{apikey:SUPABASE_KEY}});
-  if(!r.ok)throw new Error();const dados=await r.json();
-  denuncias=dados.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em,contato:d.possui_contato?'informado':'',local:d.local}));
-  if(adminLogado()){
-   const rr=await fetch(API+'/denuncias?select=*&order=registrada_em.desc',{headers:{...HEADERS,Authorization:'Bearer '+token()}});
-   if(rr.ok){const full=await rr.json();denuncias=full.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em}))}
-  }
-  render();
- }catch(e){$('lista').innerHTML='<div class="empty"><b>Não foi possível carregar as denúncias.</b></div>'}
+async function carregarDados(){
+  let publicData=[];
+  try{
+    const r=await fetchComTimeout(API+'/denuncias_publicas?select=*&order=registrada_em.desc',{headers:{apikey:SUPABASE_KEY}});
+    const body=await r.json().catch(()=>[]); if(!r.ok||!Array.isArray(body))throw new Error('HTTP '+r.status);
+    publicData=body;
+  }catch(e){console.error('Falha ao carregar denúncias públicas:',e);$('lista').innerHTML='<div class="empty"><b>Não foi possível carregar as denúncias agora.</b><br><span class="hint">Tente Atualizar novamente em alguns segundos.</span></div>';$('stats').innerHTML='<div class="stat"><b>—</b><span>aguardando conexão</span></div>';return;}
+  denuncias=publicData.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em,contato:d.possui_contato?'informado':'',local:d.local}));
+  if(adminLogado())try{const rr=await fetchComTimeout(API+'/denuncias?select=*&order=registrada_em.desc',{headers:{...HEADERS,Authorization:'Bearer '+token()}});if(rr.ok){const full=await rr.json();if(Array.isArray(full))denuncias=full.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em}));}else if(rr.status===401||rr.status===403){sessionStorage.removeItem('admin_auth');sessionStorage.removeItem('admin_token');sessionStorage.removeItem('admin_refresh');alert('Sua sessão administrativa expirou. Entre novamente.');}}catch(e){console.warn('Dados administrativos não carregados:',e)}
+  render();atualizarDashboard();
 }
 
 $('busca').oninput=render;
 document.querySelector('.toolbar').onclick=e=>{if(!e.target.dataset.filter)return;filtro=e.target.dataset.filter;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===filtro));render()};
 
 render();
-carregar();
+
+document.addEventListener('keydown',e=>{
+ if($('photoModal')?.classList.contains('open')){
+   if(e.key==='ArrowLeft')$('photoPrev').click();
+   if(e.key==='ArrowRight')$('photoNext').click();
+ }
+ if(e.key!=='Escape')return;
+ document.querySelectorAll('.modal.open').forEach(m=>m.classList.remove('open'));
+});
+
+carregarDados();
 </script>
 </body>
 </html>
