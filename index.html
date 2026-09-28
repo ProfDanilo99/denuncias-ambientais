@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Denúncias Ambientais</title>
+<title>Denúncias Ambientais — V8</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--verde:#173c2c;--musgo:#4f7d59;--terra:#704727;--papel:#f4f0e6;--borda:#ddd5c5;--texto:#20251f;--ambar:#b78b19;--erro:#9a3e3e}
@@ -31,169 +31,10 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:10px 0}.kpi{border:1px solid var(--borda);border-radius:10px;padding:10px;background:#fff;cursor:pointer;text-align:left}.kpi:hover{transform:translateY(-1px)}.kpi b{display:block;font:1.35rem Georgia,serif;color:var(--verde)}.kpi span{font-size:.7rem;color:#77705f}.kpi.active{outline:2px solid var(--musgo)}
 .chart{margin-top:12px}.chart-title{font-size:.76rem;font-weight:700;color:var(--terra);margin-bottom:7px}.chart-bars{display:flex;align-items:end;gap:5px;height:115px;border-bottom:1px solid var(--borda);padding:0 4px}.chart-bar{flex:1;min-width:8px;background:var(--musgo);border-radius:4px 4px 0 0;position:relative}.chart-bar span{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:.57rem;white-space:nowrap;color:#77705f}.chart-bar b{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:.58rem;color:var(--terra)}
 .admin-filters{display:grid;grid-template-columns:1.3fr 1.2fr 1fr auto;gap:7px;margin:10px 0}.admin-filters select{width:100%;padding:8px;border:1px solid #cfc6b5;border-radius:8px;background:#fff}.new-badge{display:inline-block;background:#b78b19;color:#fff;border-radius:999px;padding:2px 7px;font-size:.62rem;font-weight:700;margin-left:5px}.note-box{margin-top:10px;padding:10px;border:1px solid #d9d0bf;border-radius:9px;background:#fff}.note-box textarea{width:100%;min-height:80px;padding:9px;border:1px solid #cfc6b5;border-radius:8px;background:#faf8f2;resize:vertical}.note-row{display:flex;gap:7px;align-items:center;justify-content:space-between;margin-top:7px;flex-wrap:wrap}.report-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.report-item{border:1px solid var(--borda);border-radius:9px;padding:9px;background:#faf8f2}.report-item b{display:block;color:var(--verde);font-size:1.05rem}.report-item span{font-size:.7rem;color:#77705f}.map-controls{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.map-controls select{padding:7px;border:1px solid #cfc6b5;border-radius:8px;background:#fff}.submit-loading{opacity:.7;pointer-events:none}@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.admin-filters{grid-template-columns:1fr 1fr}}@media(max-width:520px){.kpi-grid{grid-template-columns:1fr 1fr}.report-summary{grid-template-columns:1fr}.admin-filters{grid-template-columns:1fr}.chart-bars{height:100px}}@media print{body{background:#fff}.modal{position:static;background:#fff}.modal:not(#reportModal){display:none!important}#reportModal{display:block!important}.dialog{max-width:none;max-height:none;box-shadow:none}.dialog-actions,.admin-tools,.admin-dashboard,header,footer{display:none!important}}
-.assistente-btn{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:9990;
-  border:none;
-  border-radius:50px;
-  padding:14px 20px;
-  background:#166534;
-  color:#fff;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-  box-shadow:0 8px 25px rgba(0,0,0,.25);
-  transition:.2s;
-}
 
-.assistente-btn:hover{
-  transform:translateY(-2px);
-  background:#15803d;
-}
-
-.assistente-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:9995;
-  background:rgba(0,0,0,.45);
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.assistente-overlay.on{
-  display:flex;
-}
-
-.assistente-box{
-  width:min(430px,100%);
-  height:min(650px,90vh);
-  background:#fff;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.35);
-  display:flex;
-  flex-direction:column;
-}
-
-.assistente-header{
-  background:#166534;
-  color:#fff;
-  padding:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.assistente-header strong{
-  display:block;
-  font-size:17px;
-}
-
-.assistente-header small{
-  display:block;
-  margin-top:3px;
-  opacity:.85;
-}
-
-.assistente-fechar{
-  border:none;
-  background:transparent;
-  color:#fff;
-  font-size:25px;
-  cursor:pointer;
-  line-height:1;
-}
-
-.assistente-mensagens{
-  flex:1;
-  overflow-y:auto;
-  padding:16px;
-  background:#f5f7f6;
-}
-
-.assistente-msg{
-  max-width:85%;
-  padding:11px 14px;
-  border-radius:14px;
-  margin-bottom:10px;
-  line-height:1.45;
-  white-space:pre-wrap;
-  word-wrap:break-word;
-}
-
-.assistente-msg.bot{
-  background:#fff;
-  color:#1f2937;
-  border:1px solid #e5e7eb;
-  border-top-left-radius:4px;
-}
-
-.assistente-msg.user{
-  margin-left:auto;
-  background:#166534;
-  color:#fff;
-  border-top-right-radius:4px;
-}
-
-.assistente-form{
-  display:flex;
-  gap:8px;
-  padding:12px;
-  background:#fff;
-  border-top:1px solid #e5e7eb;
-}
-
-.assistente-input{
-  flex:1;
-  min-width:0;
-  border:1px solid #d1d5db;
-  border-radius:12px;
-  padding:11px 13px;
-  font-size:14px;
-  outline:none;
-}
-
-.assistente-input:focus{
-  border-color:#166534;
-  box-shadow:0 0 0 2px rgba(22,101,52,.12);
-}
-
-.assistente-enviar{
-  border:none;
-  border-radius:12px;
-  padding:0 16px;
-  background:#166534;
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.assistente-enviar:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-@media(max-width:600px){
-  .assistente-btn{
-    right:14px;
-    bottom:14px;
-    padding:12px 16px;
-    font-size:14px;
-  }
-
-  .assistente-overlay{
-    padding:10px;
-  }
-
-  .assistente-box{
-    height:92vh;
-    border-radius:16px;
-  }
-}
+.required{color:#9a3e3e;font-weight:800}.field label .required{margin-left:2px}
+.ai-panel{margin-top:12px;border:1px solid var(--borda);border-radius:10px;background:#faf8f2;padding:12px}.ai-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.ai-title{font:normal 1.05rem Georgia,serif;color:var(--verde)}.ai-messages{height:260px;overflow:auto;background:#fff;border:1px solid var(--borda);border-radius:9px;padding:10px;margin:10px 0}.ai-msg{max-width:90%;padding:9px 11px;border-radius:10px;margin:7px 0;font-size:.82rem;white-space:pre-wrap}.ai-user{margin-left:auto;background:#e6efe7}.ai-bot{background:#f0ece3}.ai-form{display:flex;gap:7px}.ai-form input{flex:1;padding:10px;border:1px solid #cfc6b5;border-radius:8px;background:#fff}.ai-form button{white-space:nowrap}.ai-note{font-size:.7rem;color:#77705f;margin-top:7px}
+@media(max-width:520px){.ai-form{flex-direction:column}}
 </style>
 </head>
 <body>
@@ -202,6 +43,7 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 <p>Registre ocorrências ambientais, informe a localização, envie evidências e acompanhe o andamento.</p>
 <div class="stats" id="stats"></div>
 <button id="protocolOpen" class="consult-btn">🔎 Consultar minha denúncia</button>
+<button id="assistOpen" class="consult-btn">🤖 Assistente Ambiental</button>
 <button id="adminBtn" class="admin-link">Área administrativa</button>
 <button id="adminLogout" class="logout-action" style="display:none">Sair da área administrativa</button>
 </div></header>
@@ -225,11 +67,11 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 <h2>Registrar denúncia</h2>
 <p class="hint">Quanto mais informações e evidências você fornecer, mais fácil será analisar a ocorrência.</p>
 <form id="form">
-<div class="field"><label>Tipo de ocorrência</label><select id="tipo"><option value="">Selecione...</option><option>Desmatamento ilegal</option><option>Queimada / incêndio criminoso</option><option>Poluição de rio ou nascente</option><option>Poluição do ar</option><option>Descarte irregular de lixo ou resíduos</option><option>Caça ou pesca ilegal</option><option>Maus-tratos a animais silvestres</option><option>Construção em área de preservação</option><option>Outro</option></select></div>
-<div class="field"><label>Local do ocorrido</label><input id="local" placeholder="Ex.: margem do Rio das Pedras, próximo à ponte"></div>
-<div class="grid2"><div class="field"><label>Cidade</label><input id="cidade" placeholder="Ex.: Buíque"></div><div class="field"><label>Estado</label><select id="estado"><option value="">UF</option></select></div></div>
-<div class="field"><label>Data</label><input id="data" type="date"></div>
-<div class="field"><label>Descrição</label><textarea id="descricao" placeholder="O que aconteceu? Quando? Quem ou o que foi afetado?"></textarea></div>
+<div class="field"><label>Tipo de ocorrência <span class="required">*</span></label><select id="tipo" required><option value="">Selecione...</option><option>Desmatamento ilegal</option><option>Queimada / incêndio criminoso</option><option>Poluição de rio ou nascente</option><option>Poluição do ar</option><option>Descarte irregular de lixo ou resíduos</option><option>Caça ou pesca ilegal</option><option>Maus-tratos a animais silvestres</option><option>Construção em área de preservação</option><option>Outro</option></select></div>
+<div class="field"><label>Local do ocorrido <span class="required">*</span></label><input id="local" required id="local" placeholder="Ex.: margem do Rio das Pedras, próximo à ponte"></div>
+<div class="grid2"><div class="field"><label>Cidade <span class="required">*</span></label><input id="cidade" required placeholder="Ex.: Buíque"></div><div class="field"><label>Estado <span class="required">*</span></label><select id="estado" required<option value="">UF</option></select></div></div>
+<div class="field"><label>Data <span class="required">*</span></label><input id="data" type="date" required</div>
+<div class="field"><label>Descrição <span class="required">*</span></label><textarea id="descricao" required placeholder="O que aconteceu? Quando? Quem ou o que foi afetado?"></textarea></div>
 <div class="location-box"><b>📍 Localização precisa</b><br><span id="locTexto">Você pode permitir que o celular informe automaticamente o ponto da ocorrência.</span><br><button type="button" class="secondary" id="locBtn">Usar minha localização</button></div>
 <div class="field"><label>📷 Fotos da ocorrência</label><input id="fotos" type="file" accept="image/jpeg,image/png,image/webp" multiple><div class="photo-preview" id="photoPreview"></div><div class="hint">Até 3 fotos, com até 3 MB cada.</div><div class="privacy">🔒 <b>Privacidade:</b> evite enviar fotos com rostos, placas de veículos, documentos ou outros dados pessoais. Fotografe principalmente o problema ambiental.</div></div>
 <label style="display:flex;gap:8px;font-size:.84rem;margin:8px 0"><input type="checkbox" id="anonima"> Enviar como denúncia anônima</label>
@@ -256,7 +98,7 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 <div class="lista" id="lista"></div>
 </section>
 </main>
-<div class="footer">Sistema de denúncias ambientais — registro e acompanhamento de ocorrências.</div>
+<div class="footer">Sistema de denúncias ambientais — registro e acompanhamento de ocorrências. · V8</div>
 
 <div class="modal" id="confirmModal"><div class="dialog"><h2>Confirmar denúncia</h2><p>Revise os dados antes de enviar.</p><div id="resumo"></div><div class="dialog-actions"><button class="secondary" id="cancelar">Voltar</button><button class="primary" id="confirmar">Confirmar</button></div></div></div>
 
@@ -287,7 +129,9 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 <div class="dialog-actions"><button class="primary" id="successClose">Fechar</button></div>
 </div></div>
 
-<div class="modal" id="protocolModal"><div class="dialog"><h2>🔎 Consultar denúncia</h2><p>Informe o protocolo recebido no registro. A consulta mostra apenas informações públicas.</p><div class="field"><label>Protocolo</label><input id="protocolInput" maxlength="11" autocomplete="off" placeholder="Ex.: DA-ABC12345"></div><button class="primary" id="protocolBuscar">Consultar</button><div id="protocolResult" style="margin-top:12px"></div><div class="dialog-actions"><button class="secondary" id="protocolFechar">Fechar</button></div></div></div>
+<div class="modal" id="assistModal"><div class="dialog"><div class="ai-head"><h2 style="margin:0">🤖 Assistente Ambiental</h2><button class="secondary" id="assistFechar">Fechar</button></div><p>Faça perguntas sobre problemas ambientais, como registrar uma ocorrência ou como interpretar informações do sistema.</p><div class="ai-messages" id="aiMessages"><div class="ai-msg ai-bot">Olá! 🌱 Sou o Assistente Ambiental. Posso ajudar com informações educativas e orientações sobre o uso deste sistema.</div></div><form class="ai-form" id="aiForm"><input id="aiInput" maxlength="1000" autocomplete="off" placeholder="Digite sua pergunta..."><button class="primary" type="submit">Enviar 🚀</button></form><div class="ai-note">🔒 A chave da OpenRouter não fica exposta nesta página. A solicitação deve ser processada pela Edge Function configurada no Supabase.</div><div class="msg err" id="aiErro"></div></div></div>
+
+<div class="modal" id="protocolModal"><div class="dialog"><h2>🔎 Consultar denúncia</h2><p>Informe o protocolo recebido no registro. A consulta mostra apenas informações públicas.</p><div class="field"><label>Protocolo</label><input id="protocolInput" required maxlength="11" autocomplete="off" placeholder="Ex.: DA-ABC12345"></div><button class="primary" id="protocolBuscar">Consultar</button><div id="protocolResult" style="margin-top:12px"></div><div class="dialog-actions"><button class="secondary" id="protocolFechar">Fechar</button></div></div></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -296,6 +140,8 @@ const SUPABASE_KEY='sb_publishable_w_u16ay3ZUzv-8Me65v8Kg_f_gZJ8tb';
 const API=SUPABASE_URL+'/rest/v1';
 const AUTH=SUPABASE_URL+'/auth/v1/token?grant_type=password';
 const HEADERS={'apikey':SUPABASE_KEY,'Content-Type':'application/json'};
+// V8: endpoint seguro da Edge Function que conversa com a OpenRouter.
+const AI_ENDPOINT=SUPABASE_URL+'/functions/v1/assistente-ambiental';
 let denuncias=[],pendente=null,filtro='todas',excluirId=null,mapa=null;
 
 const estados=[['AC','Acre'],['AL','Alagoas'],['AP','Amapá'],['AM','Amazonas'],['BA','Bahia'],['CE','Ceará'],['DF','Distrito Federal'],['ES','Espírito Santo'],['GO','Goiás'],['MA','Maranhão'],['MT','Mato Grosso'],['MS','Mato Grosso do Sul'],['MG','Minas Gerais'],['PA','Pará'],['PB','Paraíba'],['PR','Paraná'],['PE','Pernambuco'],['PI','Piauí'],['RJ','Rio de Janeiro'],['RN','Rio Grande do Norte'],['RS','Rio Grande do Sul'],['RO','Rondônia'],['RR','Roraima'],['SC','Santa Catarina'],['SP','São Paulo'],['SE','Sergipe'],['TO','Tocantins']];
@@ -338,7 +184,7 @@ $('form').onsubmit=e=>{
  e.preventDefault();
  const d={tipo:$('tipo').value,local:$('local').value.trim(),cidade:$('cidade').value.trim(),estado:$('estado').value,data:$('data').value,descricao:$('descricao').value.trim(),anonima:$('anonima').checked,contato:$('anonima').checked?'':$('contato').value.trim(),latitude:pendente?.latitude??null,longitude:pendente?.longitude??null};
  const files=[...$('fotos').files];
- if(!d.tipo||!d.local||!d.cidade||!d.estado||!d.data||!d.descricao){$('erro').textContent='Preencha tipo, local, cidade, estado, data e descrição.';$('erro').style.display='block';return}
+ if(!d.tipo||!d.local||!d.cidade||!d.estado||!d.data||!d.descricao){$('erro').textContent='⚠️ Preencha todos os campos obrigatórios marcados com *: tipo, local, cidade, estado, data e descrição.';$('erro').style.display='block';return}
  if(files.length>3){$('erro').textContent='Você pode enviar no máximo 3 fotos.';$('erro').style.display='block';return}
  if(files.some(f=>f.size>3145728)){$('erro').textContent='Cada foto deve ter no máximo 3 MB.';$('erro').style.display='block';return}
  if(files.some(f=>!['image/jpeg','image/png','image/webp'].includes(f.type))){$('erro').textContent='As fotos devem estar em JPG, PNG ou WebP.';$('erro').style.display='block';return}
@@ -388,46 +234,12 @@ $('adminEntrar').onclick=entrarAdmin;$('adminSenha').onkeydown=e=>{if(e.key==='E
 
 async function atualizar(id,status){
  if(!adminLogado())return;
-
- const d=denuncias.find(x=>x.id===id);
-
- if(!d||!d.uuid){
-   alert('Não foi possível identificar esta denúncia. Atualize a página e tente novamente.');
-   return;
- }
-
- try{
-   const r=await fetchComTimeout(
-     API+'/denuncias?id=eq.'+encodeURIComponent(d.uuid),
-     {
-       method:'PATCH',
-       headers:{
-         ...HEADERS,
-         Authorization:'Bearer '+token(),
-         Prefer:'return=representation'
-       },
-       body:JSON.stringify({status})
-     }
-   );
-
-   const b=await r.json().catch(()=>[]);
-
-   if(!r.ok||!Array.isArray(b)||!b.length){
-     console.error('Falha ao atualizar:',r.status,b);
-     alert('Não foi possível atualizar o status. Verifique sua sessão administrativa.');
-     return;
-   }
-
-   d.status=b[0].status||status;
-
-   render();
-   atualizarDashboard();
-
- }catch(e){
-   console.error('Erro ao atualizar status:',e);
-   alert('Erro de conexão ao atualizar o status.');
- }
+ const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'},body:JSON.stringify({status})});
+ const b=await r.json().catch(()=>[]);
+ if(!r.ok||!b.length){alert('Não foi possível atualizar. Verifique as permissões do Supabase.');return}
+ const d=denuncias.find(x=>x.id===id);if(d)d.status=status;render();
 }
+
 function abrirExclusao(id){
  if(!adminLogado())return;excluirId=id;let d=denuncias.find(x=>x.id===id);
  $('deleteResumo').innerHTML=d?`<b>${esc(d.tipo)}</b><br>Protocolo: ${esc(d.id)}<br>${esc(d.cidade)} - ${esc(d.estado)}`:'';
@@ -435,62 +247,13 @@ function abrirExclusao(id){
 }
 $('deleteCancelar').onclick=()=>{$('deleteModal').classList.remove('open');excluirId=null};
 $('deleteConfirmar').onclick=async()=>{
- if(!excluirId)return;
-
- const id=excluirId;
- const d=denuncias.find(x=>x.id===id);
- const uuid=d?.uuid;
-
- if(!uuid){
-   alert('Não foi possível identificar esta denúncia. Atualize a página e tente novamente.');
-   return;
- }
-
- $('deleteConfirmar').disabled=true;
-
+ if(!excluirId)return;let id=excluirId;$('deleteConfirmar').disabled=true;
  try{
-
-   const r=await fetchComTimeout(
-     API+'/denuncias?id=eq.'+encodeURIComponent(uuid),
-     {
-       method:'DELETE',
-       headers:{
-         ...HEADERS,
-         Authorization:'Bearer '+token(),
-         Prefer:'return=representation'
-       }
-     }
-   );
-
-   const b=await r.json().catch(()=>[]);
-
-   if(!r.ok||!Array.isArray(b)||!b.length){
-     console.error('Falha ao excluir:',r.status,b);
-     alert('Não foi possível excluir. Verifique sua sessão administrativa.');
-     return;
-   }
-
-   denuncias=denuncias.filter(x=>x.uuid!==uuid);
-
-   $('deleteModal').classList.remove('open');
-   excluirId=null;
-
-   render();
-   atualizarDashboard();
-
-   alert('Denúncia excluída com sucesso.');
-
- }catch(e){
-
-   console.error('Erro ao excluir denúncia:',e);
-
-   alert('Erro de conexão ao excluir a denúncia.');
-
- }finally{
-
-   $('deleteConfirmar').disabled=false;
-
- }
+  const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'}});
+  const b=await r.json().catch(()=>[]);
+  if(!r.ok||!b.length){alert('Não foi possível excluir. Verifique as permissões do Supabase.');return}
+  denuncias=denuncias.filter(d=>d.id!==id);$('deleteModal').classList.remove('open');excluirId=null;render();alert('Denúncia excluída.');
+ }finally{$('deleteConfirmar').disabled=false}
 };
 
 async function abrirDetalhes(id){
@@ -602,16 +365,7 @@ async function consultarProtocolo(){
   $('protocolBuscar').disabled=true;
   $('protocolResult').innerHTML='<div class="hint">Consultando...</div>';
   try{
-    const r=await fetchComTimeout(
- API+'/denuncias_publicas?select=protocolo,tipo,local,cidade,estado,data_ocorrencia,descricao,status,registrada_em,anonima&protocolo=eq.'+encodeURIComponent(prot)+'&limit=1',
- {
-   headers:{
-     apikey:SUPABASE_KEY,
-     'Cache-Control':'no-cache'
-   },
-   cache:'no-store'
- }
-);
+    const r=await fetchComTimeout(API+'/denuncias_publicas?select=protocolo,tipo,local,cidade,estado,data_ocorrencia,descricao,status,registrada_em,anonima&protocolo=eq.'+encodeURIComponent(prot)+'&limit=1',{headers:{apikey:SUPABASE_KEY}});
     const b=await r.json().catch(()=>[]);
     if(!r.ok)throw new Error();
     if(!b.length){
@@ -701,7 +455,18 @@ function periodoAtivo(d){
   if(ate && d.data_ocorrencia > ate)return false;
   return true;
 }
-
+function atualizarDashboard(){
+  const adm=adminLogado();
+  $('dashboard').classList.toggle('on',adm);
+  document.body.classList.toggle('admin-mode',adm);
+  if(!adm){$('cityBars').innerHTML='';return}
+  const base=denuncias.filter(periodoAtivo);
+  const cont={};
+  base.forEach(d=>{const c=d.cidade||'Sem cidade';cont[c]=(cont[c]||0)+1});
+  const top=Object.entries(cont).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const max=top[0]?.[1]||1;
+  $('cityBars').innerHTML=top.length?'<b class="hint">Denúncias por cidade</b>'+top.map(([c,n])=>`<div class="city-row"><span>${esc(c)}</span><div class="city-track"><div class="city-fill" style="width:${Math.max(4,n/max*100)}%"></div></div><b>${n}</b></div>`).join(''):'<div class="hint">Nenhuma denúncia no período selecionado.</div>';
+}
 $('periodoDe').onchange=()=>{render();atualizarDashboard()};
 $('periodoAte').onchange=()=>{render();atualizarDashboard()};
 $('filtroCidade').onchange=()=>{render();atualizarDashboard()};$('filtroTipo').onchange=()=>{render();atualizarDashboard()};$('filtroStatus').onchange=()=>{filtro=$('filtroStatus').value||'todas';render();atualizarDashboard()};$('limparPeriodo').onclick=()=>{$('periodoDe').value='';$('periodoAte').value='';render();atualizarDashboard()};$('limparFiltros').onclick=()=>{$('filtroCidade').value='';$('filtroTipo').value='';$('filtroStatus').value='';filtro='todas';render();atualizarDashboard()};
@@ -709,16 +474,7 @@ $('filtroCidade').onchange=()=>{render();atualizarDashboard()};$('filtroTipo').o
 async function carregarDados(){
   let publicData=[];
   try{
-    const r=await fetchComTimeout(
- API+'/denuncias_publicas?select=*&order=registrada_em.desc',
- {
-   headers:{
-     apikey:SUPABASE_KEY,
-     'Cache-Control':'no-cache'
-   },
-   cache:'no-store'
- }
-);
+    const r=await fetchComTimeout(API+'/denuncias_publicas?select=*&order=registrada_em.desc',{headers:{apikey:SUPABASE_KEY}});
     const body=await r.json().catch(()=>[]); if(!r.ok||!Array.isArray(body))throw new Error('HTTP '+r.status);
     publicData=body;
   }catch(e){console.error('Falha ao carregar denúncias públicas:',e);$('lista').innerHTML='<div class="empty"><b>Não foi possível carregar as denúncias agora.</b><br><span class="hint">Tente Atualizar novamente em alguns segundos.</span></div>';$('stats').innerHTML='<div class="stat"><b>—</b><span>aguardando conexão</span></div>';return;}
@@ -729,6 +485,13 @@ async function carregarDados(){
 
 $('busca').oninput=render;
 document.querySelector('.toolbar').onclick=e=>{if(!e.target.dataset.filter)return;filtro=e.target.dataset.filter;document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.filter===filtro));render()};
+
+
+function adicionarMensagemIA(texto,tipo){const box=$('aiMessages');const div=document.createElement('div');div.className='ai-msg '+(tipo==='user'?'ai-user':'ai-bot');div.textContent=texto;box.appendChild(div);box.scrollTop=box.scrollHeight;}
+function abrirAssistente(){ $('aiErro').style.display='none'; $('assistModal').classList.add('open'); setTimeout(()=>$('aiInput').focus(),80); }
+$('assistOpen').onclick=abrirAssistente;
+$('assistFechar').onclick=()=>$('assistModal').classList.remove('open');
+$('aiForm').onsubmit=async e=>{e.preventDefault();const input=$('aiInput'),q=input.value.trim(),btn=e.submitter||$('aiForm button');if(!q)return;input.value='';adicionarMensagemIA(q,'user');btn.disabled=true;btn.textContent='Pensando...';$('aiErro').style.display='none';try{const r=await fetchComTimeout(AI_ENDPOINT,{method:'POST',headers:{...HEADERS},body:JSON.stringify({message:q,question:q})},30000);const body=await r.json().catch(()=>({}));if(!r.ok)throw new Error(body.error||'Falha no assistente');const resposta=body.answer||body.response||body.message||body.output;if(!resposta)throw new Error('Resposta vazia');adicionarMensagemIA(resposta,'bot');}catch(err){console.error('Assistente Ambiental:',err);$('aiErro').textContent='Não foi possível falar com o Assistente agora. Verifique se a Edge Function "assistente-ambiental" está publicada no Supabase.';$('aiErro').style.display='block';}finally{btn.disabled=false;btn.textContent='Enviar 🚀'}};
 
 render();
 
@@ -742,159 +505,6 @@ document.addEventListener('keydown',e=>{
 });
 
 carregarDados();
-
-/* ===== ASSISTENTE AMBIENTAL ===== */
-
-document.addEventListener('DOMContentLoaded',()=>{
-
-  const ASSISTENTE_URL =
-    'https://iwkovpsqtiwntsfsbqkm.supabase.co/functions/v1/assistente-ambiental';
-
-  const assistenteOpen = document.getElementById('assistenteOpen');
-  const assistenteClose = document.getElementById('assistenteClose');
-  const assistenteOverlay = document.getElementById('assistenteOverlay');
-  const assistenteInput = document.getElementById('assistenteInput');
-  const assistenteEnviar = document.getElementById('assistenteEnviar');
-  const assistenteMensagens = document.getElementById('assistenteMensagens');
-
-  function assistenteAdicionarMensagem(texto,tipo){
-    const div = document.createElement('div');
-    div.className = 'assistente-msg ' + tipo;
-    div.textContent = texto;
-    assistenteMensagens.appendChild(div);
-    assistenteMensagens.scrollTop = assistenteMensagens.scrollHeight;
-  }
-
-  function assistenteAbrir(){
-    assistenteOverlay.classList.add('on');
-    setTimeout(()=>assistenteInput.focus(),100);
-  }
-
-  function assistenteFechar(){
-    assistenteOverlay.classList.remove('on');
-  }
-
-  async function assistenteEnviarMensagem(){
-
-    const mensagem = assistenteInput.value.trim();
-
-    if(!mensagem)return;
-
-    assistenteAdicionarMensagem(mensagem,'user');
-
-    assistenteInput.value='';
-    assistenteInput.disabled=true;
-    assistenteEnviar.disabled=true;
-    assistenteEnviar.textContent='Enviando...';
-
-    try{
-
-      const resposta = await fetch(ASSISTENTE_URL,{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-          message:mensagem
-        })
-      });
-
-      const dados = await resposta.json().catch(()=>({}));
-
-      if(!resposta.ok){
-        throw new Error(dados.error || 'Erro ao consultar o assistente.');
-      }
-
-      if(!dados.reply){
-        throw new Error('O assistente não retornou uma resposta.');
-      }
-
-      assistenteAdicionarMensagem(dados.reply,'bot');
-
-    }catch(erro){
-
-      console.error('Erro no Assistente Ambiental:',erro);
-
-      assistenteAdicionarMensagem(
-        'Não foi possível falar com o Assistente Ambiental agora. Tente novamente em alguns instantes.',
-        'bot'
-      );
-
-    }finally{
-
-      assistenteInput.disabled=false;
-      assistenteEnviar.disabled=false;
-      assistenteEnviar.textContent='Enviar';
-      assistenteInput.focus();
-
-    }
-  }
-
-  assistenteOpen.onclick=assistenteAbrir;
-  assistenteClose.onclick=assistenteFechar;
-  assistenteEnviar.onclick=assistenteEnviarMensagem;
-
-  assistenteInput.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){
-      e.preventDefault();
-      assistenteEnviarMensagem();
-    }
-  });
-
-  assistenteOverlay.addEventListener('click',e=>{
-    if(e.target===assistenteOverlay){
-      assistenteFechar();
-    }
-  });
-
-});
-
-/* ===== FIM DO ASSISTENTE AMBIENTAL ===== */
-
 </script>
-<!-- ASSISTENTE AMBIENTAL -->
-<button id="assistenteOpen" class="assistente-btn">
-  🤖 Assistente Ambiental
-</button>
-
-<div id="assistenteOverlay" class="assistente-overlay">
-  <div class="assistente-box">
-
-    <div class="assistente-header">
-      <div>
-        <strong>🌱 Assistente Ambiental</strong>
-        <small>Tire suas dúvidas ambientais</small>
-      </div>
-
-      <button id="assistenteClose" class="assistente-fechar" aria-label="Fechar">
-        ×
-      </button>
-    </div>
-
-    <div id="assistenteMensagens" class="assistente-mensagens">
-      <div class="assistente-msg bot">
-        Olá! 👋 Sou o Assistente Ambiental.
-
-        Posso ajudar com dúvidas sobre meio ambiente, sustentabilidade, denúncias ambientais e sobre o funcionamento deste site.
-      </div>
-    </div>
-
-    <div class="assistente-form">
-      <input
-        id="assistenteInput"
-        class="assistente-input"
-        type="text"
-        placeholder="Digite sua pergunta..."
-        autocomplete="off"
-      >
-
-      <button id="assistenteEnviar" class="assistente-enviar">
-        Enviar
-      </button>
-    </div>
-
-  </div>
-</div>
-<!-- FIM DO ASSISTENTE AMBIENTAL -->
 </body>
 </html>
