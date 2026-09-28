@@ -742,6 +742,109 @@ document.addEventListener('keydown',e=>{
 });
 
 carregarDados();
+  /* ===== ASSISTENTE AMBIENTAL ===== */
+
+const ASSISTENTE_URL =
+  'https://iwkovpsqtiwntsfsbqkm.supabase.co/functions/v1/assistente-ambiental';
+
+const assistenteOpen = document.getElementById('assistenteOpen');
+const assistenteClose = document.getElementById('assistenteClose');
+const assistenteOverlay = document.getElementById('assistenteOverlay');
+const assistenteInput = document.getElementById('assistenteInput');
+const assistenteEnviar = document.getElementById('assistenteEnviar');
+const assistenteMensagens = document.getElementById('assistenteMensagens');
+
+function assistenteAdicionarMensagem(texto, tipo){
+  const div = document.createElement('div');
+  div.className = 'assistente-msg ' + tipo;
+  div.textContent = texto;
+  assistenteMensagens.appendChild(div);
+  assistenteMensagens.scrollTop = assistenteMensagens.scrollHeight;
+}
+
+function assistenteAbrir(){
+  assistenteOverlay.classList.add('on');
+  setTimeout(()=>assistenteInput.focus(),100);
+}
+
+function assistenteFechar(){
+  assistenteOverlay.classList.remove('on');
+}
+
+async function assistenteEnviarMensagem(){
+
+  const mensagem = assistenteInput.value.trim();
+
+  if(!mensagem)return;
+
+  assistenteAdicionarMensagem(mensagem,'user');
+
+  assistenteInput.value='';
+  assistenteInput.disabled=true;
+  assistenteEnviar.disabled=true;
+  assistenteEnviar.textContent='Enviando...';
+
+  try{
+
+    const resposta = await fetch(ASSISTENTE_URL,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        message:mensagem
+      })
+    });
+
+    const dados = await resposta.json().catch(()=>({}));
+
+    if(!resposta.ok){
+      throw new Error(dados.error || 'Erro ao consultar o assistente.');
+    }
+
+    if(!dados.reply){
+      throw new Error('O assistente não retornou uma resposta.');
+    }
+
+    assistenteAdicionarMensagem(dados.reply,'bot');
+
+  }catch(erro){
+
+    console.error('Erro no Assistente Ambiental:',erro);
+
+    assistenteAdicionarMensagem(
+      'Não foi possível falar com o Assistente Ambiental agora. Tente novamente em alguns instantes.',
+      'bot'
+    );
+
+  }finally{
+
+    assistenteInput.disabled=false;
+    assistenteEnviar.disabled=false;
+    assistenteEnviar.textContent='Enviar';
+    assistenteInput.focus();
+
+  }
+}
+
+assistenteOpen.onclick=assistenteAbrir;
+assistenteClose.onclick=assistenteFechar;
+assistenteEnviar.onclick=assistenteEnviarMensagem;
+
+assistenteInput.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    e.preventDefault();
+    assistenteEnviarMensagem();
+  }
+});
+
+assistenteOverlay.addEventListener('click',e=>{
+  if(e.target===assistenteOverlay){
+    assistenteFechar();
+  }
+});
+
+/* ===== FIM DO ASSISTENTE AMBIENTAL ===== */
 </script>
 <!-- ASSISTENTE AMBIENTAL -->
 <button id="assistenteOpen" class="assistente-btn">
