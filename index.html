@@ -1,9 +1,10 @@
+<!-- Denúncias Ambientais V8.1 — administração total + símbolos + IA corrigida -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Denúncias Ambientais — V8</title>
+<title>Denúncias Ambientais — V8.1</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{--verde:#173c2c;--musgo:#4f7d59;--terra:#704727;--papel:#f4f0e6;--borda:#ddd5c5;--texto:#20251f;--ambar:#b78b19;--erro:#9a3e3e}
@@ -35,6 +36,24 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 .required{color:#9a3e3e;font-weight:800}.field label .required{margin-left:2px}
 .ai-panel{margin-top:12px;border:1px solid var(--borda);border-radius:10px;background:#faf8f2;padding:12px}.ai-head{display:flex;justify-content:space-between;gap:10px;align-items:center}.ai-title{font:normal 1.05rem Georgia,serif;color:var(--verde)}.ai-messages{height:260px;overflow:auto;background:#fff;border:1px solid var(--borda);border-radius:9px;padding:10px;margin:10px 0}.ai-msg{max-width:90%;padding:9px 11px;border-radius:10px;margin:7px 0;font-size:.82rem;white-space:pre-wrap}.ai-user{margin-left:auto;background:#e6efe7}.ai-bot{background:#f0ece3}.ai-form{display:flex;gap:7px}.ai-form input{flex:1;padding:10px;border:1px solid #cfc6b5;border-radius:8px;background:#fff}.ai-form button{white-space:nowrap}.ai-note{font-size:.7rem;color:#77705f;margin-top:7px}
 @media(max-width:520px){.ai-form{flex-direction:column}}
+
+/* ===== V8.1 — seletor de símbolos ===== */
+.symbol-help{background:#f3f7f1;border:1px solid #d8e5d3;border-radius:12px;padding:10px 12px;margin:6px 0 10px;font-size:.9rem;color:#40513c}
+.symbol-picker{border:1px solid #d8ddd4;border-radius:14px;padding:12px;background:#fff}
+.symbol-search{width:100%;box-sizing:border-box;margin-bottom:10px}
+.symbol-section{margin-top:12px}
+.symbol-section-title{font-weight:700;font-size:.9rem;margin:8px 0;color:#40513c}
+.symbol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:7px}
+.symbol-btn{border:1px solid #dfe5dc;background:#fafcf9;border-radius:11px;padding:7px 4px;cursor:pointer;text-align:center;min-height:62px}
+.symbol-btn:hover{border-color:var(--verde);transform:translateY(-1px)}
+.symbol-btn.selected{border:2px solid var(--verde);background:#eef6ea}
+.symbol-btn .emoji{display:block;font-size:1.55rem;line-height:1.5}
+.symbol-btn .name{display:block;font-size:.68rem;line-height:1.1;color:#52604e}
+.symbol-empty{font-size:.85rem;color:#777;padding:8px 2px}
+.card-symbol{font-size:1.7rem;line-height:1}
+.symbol-preview{display:flex;align-items:center;gap:10px;margin-top:10px;padding:9px;border-radius:10px;background:#f7f9f5}
+.symbol-preview-icon{font-size:1.9rem}
+
 </style>
 </head>
 <body>
@@ -71,7 +90,18 @@ main{max-width:1150px;margin:auto;padding:25px 20px 55px;display:grid;grid-templ
 <div class="field"><label>Local do ocorrido <span class="required">*</span></label><input id="local" required id="local" placeholder="Ex.: margem do Rio das Pedras, próximo à ponte"></div>
 <div class="grid2"><div class="field"><label>Cidade <span class="required">*</span></label><input id="cidade" required placeholder="Ex.: Buíque"></div><div class="field"><label>Estado <span class="required">*</span></label><select id="estado" required<option value="">UF</option></select></div></div>
 <div class="field"><label>Data <span class="required">*</span></label><input id="data" type="date" required</div>
-<div class="field"><label>Descrição <span class="required">*</span></label><textarea id="descricao" required placeholder="O que aconteceu? Quando? Quem ou o que foi afetado?"></textarea></div>
+<div class="field"><label>Descrição <span class="required">*</span></label><textarea id="descricao" required placeholder="O que aconteceu? Quando? Quem ou o que foi afetado?"></textarea>
+<div class="field">
+<label>🌱 Símbolo da denúncia <span class="req">*</span></label>
+<div class="symbol-help">Escolha uma identidade visual para a ocorrência. O símbolo não identifica nem revela quem fez a denúncia.</div>
+<div class="symbol-picker">
+<input class="symbol-search" id="simboloBusca" type="search" placeholder="🔎 Buscar símbolo...">
+<div id="symbolPicker"></div>
+<div class="symbol-preview"><span class="symbol-preview-icon" id="simboloPreview">🌎</span><div><b id="simboloNome">Impacto ambiental</b><div style="font-size:.78rem;color:#6a7466">Símbolo selecionado</div></div></div>
+</div>
+<input type="hidden" id="simbolo" value="🌎">
+</div>
+</div>
 <div class="location-box"><b>📍 Localização precisa</b><br><span id="locTexto">Você pode permitir que o celular informe automaticamente o ponto da ocorrência.</span><br><button type="button" class="secondary" id="locBtn">Usar minha localização</button></div>
 <div class="field"><label>📷 Fotos da ocorrência</label><input id="fotos" type="file" accept="image/jpeg,image/png,image/webp" multiple><div class="photo-preview" id="photoPreview"></div><div class="hint">Até 3 fotos, com até 3 MB cada.</div><div class="privacy">🔒 <b>Privacidade:</b> evite enviar fotos com rostos, placas de veículos, documentos ou outros dados pessoais. Fotografe principalmente o problema ambiental.</div></div>
 <label style="display:flex;gap:8px;font-size:.84rem;margin:8px 0"><input type="checkbox" id="anonima"> Enviar como denúncia anônima</label>
@@ -180,16 +210,55 @@ $('fotos').onchange=()=>{
  files.slice(0,3).forEach(f=>{if(f.size>3145728)return;let u=URL.createObjectURL(f);let img=document.createElement('img');img.src=u;$('photoPreview').appendChild(img)});
 };
 
+
+/* ===== Biblioteca de símbolos V8.1 ===== */
+const SIMBOLOS=[
+ {cat:'⭐ Mais usados',it:[['🔥','Queimada'],['🌳','Desmatamento'],['🗑️','Lixo'],['💧','Água'],['🐾','Animais'],['🚯','Descarte irregular'],['🏭','Poluição industrial'],['♻️','Sustentabilidade']]},
+ {cat:'🌿 Natureza e vegetação',it:[['🌳','Árvore'],['🌲','Floresta'],['🌴','Palmeira'],['🌱','Muda'],['🌿','Vegetação'],['🍃','Folhas'],['🍀','Natureza'],['🌾','Vegetação rural'],['🌵','Caatinga'],['🌻','Girassol'],['🌷','Flor'],['🌹','Rosa'],['🌺','Flor tropical'],['🌸','Flor'],['🪻','Lavanda'],['🍄','Fungo']]},
+ {cat:'🐾 Animais e biodiversidade',it:[['🐦','Ave'],['🦜','Papagaio'],['🦉','Coruja'],['🦅','Ave de rapina'],['🐝','Abelha'],['🦋','Borboleta'],['🐞','Inseto'],['🐢','Tartaruga'],['🐸','Sapo'],['🦎','Lagarto'],['🐍','Serpente'],['🐟','Peixe'],['🐠','Peixe tropical'],['🐬','Golfinho'],['🐳','Baleia'],['🦀','Caranguejo'],['🦩','Ave aquática'],['🦢','Cisne'],['🦔','Mamífero'],['🐿️','Fauna'],['🦊','Raposa'],['🦌','Veado'],['🐒','Primata']]},
+ {cat:'💧 Água e recursos hídricos',it:[['💧','Água'],['💦','Gotas'],['🌊','Rio ou mar'],['🏞️','Área ribeirinha'],['🐟','Fauna aquática'],['🐠','Peixes'],['🐬','Vida marinha'],['🐢','Fauna aquática'],['🪷','Planta aquática'],['🚰','Abastecimento']]},
+ {cat:'🌎 Planeta e clima',it:[['🌎','Terra'],['🌍','Planeta'],['🌏','Planeta'],['☀️','Calor ou sol'],['🌤️','Tempo ensolarado'],['⛅','Nuvens'],['🌧️','Chuva'],['⛈️','Tempestade'],['🌈','Fenômeno climático'],['❄️','Frio'],['🌪️','Vendaval']]},
+ {cat:'♻️ Sustentabilidade',it:[['♻️','Reciclagem'],['🔄','Reutilização'],['🌱','Sustentabilidade'],['🪴','Cultivo'],['🔋','Energia'],['⚡','Eletricidade'],['🚲','Mobilidade sustentável'],['🚯','Não jogar lixo'],['🚮','Descarte correto'],['🗑️','Resíduos'],['💡','Economia de energia']]},
+ {cat:'🏔️ Paisagens e áreas naturais',it:[['🏔️','Montanha'],['⛰️','Encosta'],['🏕️','Área de camping'],['🏝️','Ilha'],['🏜️','Área árida'],['🌋','Vulcão'],['🌅','Paisagem'],['🌄','Paisagem natural'],['🌲','Floresta'],['🏞️','Área natural']]},
+ {cat:'⚠️ Impactos e atividades',it:[['🔥','Queimada'],['🪓','Corte de árvores'],['🏭','Indústria'],['🌫️','Poluição do ar'],['💧','Poluição da água'],['🕳️','Esgoto'],['🚜','Atividade rural'],['🏗️','Construção'],['⛰️','Erosão ou encosta'],['🌎','Impacto ambiental']]}
+];
+function selecionarSimbolo(emoji,nome){
+ $('simbolo').value=emoji;
+ $('simboloPreview').textContent=emoji;
+ $('simboloNome').textContent=nome;
+ renderSimbolos();
+}
+function renderSimbolos(){
+ const root=$('symbolPicker');if(!root)return;
+ const q=($('simboloBusca')?.value||'').trim().toLowerCase();
+ const atual=$('simbolo')?.value||'🌎';
+ let out='';
+ SIMBOLOS.forEach(s=>{
+  const itens=s.it.filter(x=>!q||x[0].includes(q)||x[1].toLowerCase().includes(q)||s.cat.toLowerCase().includes(q));
+  if(!itens.length)return;
+  out+=`<div class="symbol-section"><div class="symbol-section-title">${s.cat}</div><div class="symbol-grid">`;
+  itens.forEach(x=>{
+   const e=x[0].replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+   const n=x[1].replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+   out+=`<button type="button" class="symbol-btn ${x[0]===atual?'selected':''}" onclick="selecionarSimbolo('${e}','${n}')"><span class="emoji">${x[0]}</span><span class="name">${x[1]}</span></button>`;
+  });
+  out+='</div></div>';
+ });
+ root.innerHTML=out||'<div class="symbol-empty">Nenhum símbolo encontrado.</div>';
+}
+if($('simboloBusca'))$('simboloBusca').addEventListener('input',renderSimbolos);
+renderSimbolos();
+
 $('form').onsubmit=e=>{
  e.preventDefault();
- const d={tipo:$('tipo').value,local:$('local').value.trim(),cidade:$('cidade').value.trim(),estado:$('estado').value,data:$('data').value,descricao:$('descricao').value.trim(),anonima:$('anonima').checked,contato:$('anonima').checked?'':$('contato').value.trim(),latitude:pendente?.latitude??null,longitude:pendente?.longitude??null};
+ const d={tipo:$('tipo').value,local:$('local').value.trim(),cidade:$('cidade').value.trim(),estado:$('estado').value,data:$('data').value,descricao:$('descricao').value.trim(),anonima:$('anonima').checked,contato:$('anonima').checked?'':$('contato').value.trim(),latitude:pendente?.latitude??null,longitude:pendente?.longitude??null,simbolo:$('simbolo')?.value||'🌎'};
  const files=[...$('fotos').files];
- if(!d.tipo||!d.local||!d.cidade||!d.estado||!d.data||!d.descricao){$('erro').textContent='⚠️ Preencha todos os campos obrigatórios marcados com *: tipo, local, cidade, estado, data e descrição.';$('erro').style.display='block';return}
+ if(!d.tipo||!d.local||!d.cidade||!d.estado||!d.data||!d.descricao||!d.simbolo){$('erro').textContent='⚠️ Preencha todos os campos obrigatórios marcados com *: tipo, local, cidade, estado, data, descrição e símbolo.';$('erro').style.display='block';return}
  if(files.length>3){$('erro').textContent='Você pode enviar no máximo 3 fotos.';$('erro').style.display='block';return}
  if(files.some(f=>f.size>3145728)){$('erro').textContent='Cada foto deve ter no máximo 3 MB.';$('erro').style.display='block';return}
  if(files.some(f=>!['image/jpeg','image/png','image/webp'].includes(f.type))){$('erro').textContent='As fotos devem estar em JPG, PNG ou WebP.';$('erro').style.display='block';return}
  $('erro').style.display='none';pendente={...d,files};
- $('resumo').innerHTML=`<b>${esc(d.tipo)}</b><br>${esc(d.cidade)} - ${esc(d.estado)}<br>${esc(d.local)}<br>${dataBR(d.data)}<br>${d.latitude!=null?'📍 Localização precisa incluída':'📍 Sem localização precisa'}<br>${files.length?'📷 '+files.length+' foto(s)':'📷 Sem fotos'}`;
+ $('resumo').innerHTML=`<b>${esc(d.tipo)}</b><br>${esc(d.cidade)} - ${esc(d.estado)}<br>${esc(d.local)}<br>${dataBR(d.data)}<br>🌱 Símbolo: ${esc(d.simbolo)}<br>${d.latitude!=null?'📍 Localização precisa incluída':'📍 Sem localização precisa'}<br>${files.length?'📷 '+files.length+' foto(s)':'📷 Sem fotos'}`;
  $('confirmModal').classList.add('open');
 };
 
@@ -201,9 +270,9 @@ $('confirmar').onclick=async()=>{
  if(!pendente)return;const btn=$('confirmar');if(btn.dataset.enviando==='1')return;btn.dataset.enviando='1';btn.disabled=true;btn.classList.add('submit-loading');btn.textContent='Enviando...';$('erro').style.display='none';
  const d=pendente,nome=estados.find(x=>x[0]===d.estado)?.[1]||d.estado,prot=protocolo();
  try{
-  const fotos=await enviarFotos(d.files||[],prot);const payload={tipo:d.tipo,local:d.local,cidade:d.cidade,estado:nome,data_ocorrencia:d.data,descricao:d.descricao,anonima:d.anonima,contato:d.contato||null,protocolo:prot,status:'Em análise',latitude:d.latitude,longitude:d.longitude,fotos};
+  const fotos=await enviarFotos(d.files||[],prot);const payload={tipo:d.tipo,local:d.local,cidade:d.cidade,estado:nome,data_ocorrencia:d.data,descricao:d.descricao,anonima:d.anonima,contato:d.contato||null,protocolo:prot,status:'Em análise',latitude:d.latitude,longitude:d.longitude,fotos,simbolo:d.simbolo||'🌎'};
   const r=await fetchComTimeout(API+'/denuncias',{method:'POST',headers:{...HEADERS,Prefer:'return=minimal'},body:JSON.stringify(payload)});const txt=await r.text();if(!r.ok)throw new Error(txt||('HTTP '+r.status));
-  $('confirmModal').classList.remove('open');$('form').reset();$('photoPreview').innerHTML='';$('data').value=new Date().toISOString().slice(0,10);$('contatoWrap').style.display='block';pendente=null;mostrarSucesso(prot);$('ok').textContent='Denúncia registrada com sucesso. Protocolo: '+prot;$('ok').style.display='block';setTimeout(()=>$('ok').style.display='none',6000);await carregarDados();
+  $('confirmModal').classList.remove('open');$('form').reset();$('photoPreview').innerHTML='';$('data').value=new Date().toISOString().slice(0,10);$('contatoWrap').style.display='block';$('simbolo').value='🌎';$('simboloPreview').textContent='🌎';$('simboloNome').textContent='Impacto ambiental';renderSimbolos();pendente=null;mostrarSucesso(prot);$('ok').textContent='Denúncia registrada com sucesso. Protocolo: '+prot;$('ok').style.display='block';setTimeout(()=>$('ok').style.display='none',6000);await carregarDados();
  }catch(e){console.error('Erro ao registrar denúncia:',e);$('erro').textContent='Não foi possível registrar a denúncia. Nenhum protocolo foi confirmado. Verifique a conexão e tente novamente.';$('erro').style.display='block';}
  finally{btn.dataset.enviando='0';btn.disabled=false;btn.classList.remove('submit-loading');btn.textContent='Confirmar'}
 };
@@ -234,10 +303,14 @@ $('adminEntrar').onclick=entrarAdmin;$('adminSenha').onkeydown=e=>{if(e.key==='E
 
 async function atualizar(id,status){
  if(!adminLogado())return;
- const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'},body:JSON.stringify({status})});
- const b=await r.json().catch(()=>[]);
- if(!r.ok||!b.length){alert('Não foi possível atualizar. Verifique as permissões do Supabase.');return}
- const d=denuncias.find(x=>x.id===id);if(d)d.status=status;render();
+ const d=denuncias.find(x=>x.id===id);
+ if(!d||!d.uuid){alert('Não foi possível identificar a denúncia no banco de dados.');return}
+ try{
+  const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(d.uuid),{method:'PATCH',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'},body:JSON.stringify({status})});
+  const b=await r.json().catch(()=>[]);
+  if(!r.ok||!Array.isArray(b)||!b.length){console.error('UPDATE:',r.status,b);alert('Não foi possível atualizar. Verifique a sessão administrativa e as permissões do Supabase.');return}
+  d.status=status;render();atualizarDashboard();
+ }catch(e){console.error(e);alert('Não foi possível atualizar a denúncia. Verifique sua conexão e a sessão administrativa.')}
 }
 
 function abrirExclusao(id){
@@ -247,13 +320,20 @@ function abrirExclusao(id){
 }
 $('deleteCancelar').onclick=()=>{$('deleteModal').classList.remove('open');excluirId=null};
 $('deleteConfirmar').onclick=async()=>{
- if(!excluirId)return;let id=excluirId;$('deleteConfirmar').disabled=true;
+ if(!excluirId)return;
+ const id=excluirId,d=denuncias.find(x=>x.id===id);
+ $('deleteConfirmar').disabled=true;
  try{
-  const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'}});
+  if(!d||!d.uuid){alert('Não foi possível identificar a denúncia no banco de dados.');return}
+  const r=await fetchComTimeout(API+'/denuncias?id=eq.'+encodeURIComponent(d.uuid),{method:'DELETE',headers:{...HEADERS,Authorization:'Bearer '+token(),Prefer:'return=representation'}});
   const b=await r.json().catch(()=>[]);
-  if(!r.ok||!b.length){alert('Não foi possível excluir. Verifique as permissões do Supabase.');return}
-  denuncias=denuncias.filter(d=>d.id!==id);$('deleteModal').classList.remove('open');excluirId=null;render();alert('Denúncia excluída.');
- }finally{$('deleteConfirmar').disabled=false}
+  if(!r.ok){console.error('DELETE:',r.status,b);alert('Não foi possível excluir. Verifique a sessão administrativa e as permissões do Supabase.');return}
+  if(!Array.isArray(b)||!b.length){alert('A denúncia não foi excluída. O banco não retornou o registro removido.');return}
+  denuncias=denuncias.filter(x=>x.id!==id);
+  $('deleteModal').classList.remove('open');excluirId=null;render();atualizarDashboard();
+  alert('Denúncia excluída.');
+ }catch(e){console.error(e);alert('Não foi possível excluir a denúncia. Verifique sua conexão e a sessão administrativa.')}
+ finally{$('deleteConfirmar').disabled=false}
 };
 
 async function abrirDetalhes(id){
@@ -310,7 +390,7 @@ function render(){
  const q=$('busca').value.toLowerCase().trim(),adm=adminLogado();
  const vis=denuncias.filter(d=>(filtro==='todas'||d.status===filtro)&&(!q||[d.tipo,d.cidade,d.estado,d.id,d.local].join(' ').toLowerCase().includes(q))&&(!adm||(!$('filtroCidade').value||d.cidade===$('filtroCidade').value))&&(!adm||(!$('filtroTipo').value||d.tipo===$('filtroTipo').value))&&(!adm||(!$('filtroStatus').value||d.status===$('filtroStatus').value)));
  $('lista').innerHTML=vis.length?vis.map(d=>`<article class="card ${classe(d.status)}">
- <div class="top"><div><h3>${esc(d.tipo)}</h3><div class="protocol">Protocolo ${esc(d.id)} ${adm&&!foiLida(d.id)?'<span class="new-badge">🆕 NOVA</span>':''}</div></div>${adm?`<select class="status" onchange="atualizar('${esc(d.id)}',this.value)"><option ${d.status==='Em análise'?'selected':''}>Em análise</option><option ${d.status==='Investigando'?'selected':''}>Investigando</option><option ${d.status==='Resolvido'?'selected':''}>Resolvido</option></select>`:''}</div>
+ <div class="top"><div><h3><span class="card-symbol">${esc(d.simbolo||'🌎')}</span> ${esc(d.tipo)}</h3><div class="protocol">Protocolo ${esc(d.id)} ${adm&&!foiLida(d.id)?'<span class="new-badge">🆕 NOVA</span>':''}</div></div>${adm?`<select class="status" onchange="atualizar('${esc(d.id)}',this.value)"><option ${d.status==='Em análise'?'selected':''}>Em análise</option><option ${d.status==='Investigando'?'selected':''}>Investigando</option><option ${d.status==='Resolvido'?'selected':''}>Resolvido</option></select>`:''}</div>
  <div class="meta">${esc(d.local)} · ${esc(d.cidade)} - ${esc(d.estado)} · ${dataBR(d.data)} · ${d.anonima?'Anônima':d.contato?'Contato informado':'Sem contato'}</div>
  <div class="desc">${esc(d.descricao)}</div>
  <div class="foot"><span class="tag">${esc(d.status)}</span>${adm?`<div class="admin-actions">${d.latitude!=null&&d.longitude!=null?'<button class="admin-action" onclick="abrirMapa()">🗺️ Mapa</button>':''}<button class="admin-action" onclick="abrirDetalhes('${esc(d.id)}')">📄 Detalhes</button><button class="admin-action" onclick="abrirHistorico('${esc(d.id)}')">🕒 Histórico</button><button class="admin-action" onclick="abrirNota('${esc(d.id)}')">📝 Observação</button><button class="admin-action delete-action" onclick="abrirExclusao('${esc(d.id)}')">🗑️ Excluir</button></div>`:''}</div>
@@ -478,8 +558,8 @@ async function carregarDados(){
     const body=await r.json().catch(()=>[]); if(!r.ok||!Array.isArray(body))throw new Error('HTTP '+r.status);
     publicData=body;
   }catch(e){console.error('Falha ao carregar denúncias públicas:',e);$('lista').innerHTML='<div class="empty"><b>Não foi possível carregar as denúncias agora.</b><br><span class="hint">Tente Atualizar novamente em alguns segundos.</span></div>';$('stats').innerHTML='<div class="stat"><b>—</b><span>aguardando conexão</span></div>';return;}
-  denuncias=publicData.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em,contato:d.possui_contato?'informado':'',local:d.local}));
-  if(adminLogado())try{const rr=await fetchComTimeout(API+'/denuncias?select=*&order=registrada_em.desc',{headers:{...HEADERS,Authorization:'Bearer '+token()}});if(rr.ok){const full=await rr.json();if(Array.isArray(full))denuncias=full.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em}));}else if(rr.status===401||rr.status===403){sessionStorage.removeItem('admin_auth');sessionStorage.removeItem('admin_token');sessionStorage.removeItem('admin_refresh');alert('Sua sessão administrativa expirou. Entre novamente.');}}catch(e){console.warn('Dados administrativos não carregados:',e)}
+  denuncias=publicData.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em,contato:d.possui_contato?'informado':'',local:d.local,simbolo:d.simbolo||'🌎'}));
+  if(adminLogado())try{const rr=await fetchComTimeout(API+'/denuncias?select=*&order=registrada_em.desc',{headers:{...HEADERS,Authorization:'Bearer '+token()}});if(rr.ok){const full=await rr.json();if(Array.isArray(full))denuncias=full.map(d=>({...d,id:d.protocolo,uuid:d.id,data:d.data_ocorrencia,registradaEm:d.registrada_em,simbolo:d.simbolo||'🌎'}));}else if(rr.status===401||rr.status===403){sessionStorage.removeItem('admin_auth');sessionStorage.removeItem('admin_token');sessionStorage.removeItem('admin_refresh');alert('Sua sessão administrativa expirou. Entre novamente.');}}catch(e){console.warn('Dados administrativos não carregados:',e)}
   render();atualizarDashboard();
 }
 
@@ -491,7 +571,9 @@ function adicionarMensagemIA(texto,tipo){const box=$('aiMessages');const div=doc
 function abrirAssistente(){ $('aiErro').style.display='none'; $('assistModal').classList.add('open'); setTimeout(()=>$('aiInput').focus(),80); }
 $('assistOpen').onclick=abrirAssistente;
 $('assistFechar').onclick=()=>$('assistModal').classList.remove('open');
-$('aiForm').onsubmit=async e=>{e.preventDefault();const input=$('aiInput'),q=input.value.trim(),btn=e.submitter||$('aiForm button');if(!q)return;input.value='';adicionarMensagemIA(q,'user');btn.disabled=true;btn.textContent='Pensando...';$('aiErro').style.display='none';try{const r=await fetchComTimeout(AI_ENDPOINT,{method:'POST',headers:{...HEADERS},body:JSON.stringify({message:q,question:q})},30000);const body=await r.json().catch(()=>({}));if(!r.ok)throw new Error(body.error||'Falha no assistente');const resposta=body.answer||body.response||body.message||body.output;if(!resposta)throw new Error('Resposta vazia');adicionarMensagemIA(resposta,'bot');}catch(err){console.error('Assistente Ambiental:',err);$('aiErro').textContent='Não foi possível falar com o Assistente agora. Verifique se a Edge Function "assistente-ambiental" está publicada no Supabase.';$('aiErro').style.display='block';}finally{btn.disabled=false;btn.textContent='Enviar 🚀'}};
+$('aiForm').onsubmit=async e=>{e.preventDefault();const input=$('aiInput'),q=input.value.trim(),btn=e.submitter||$('aiForm button');if(!q)return;input.value='';adicionarMensagemIA(q,'user');btn.disabled=true;btn.textContent='Pensando...';$('aiErro').style.display='none';try{const r=await fetchComTimeout(AI_ENDPOINT,{method:'POST',headers:{...HEADERS},body:JSON.stringify({message:q,question:q})},30000);const body=await r.json().catch(()=>({}));if(!r.ok)throw new Error(body.error||'Falha no assistente');const resposta=body.reply||body.answer||body.response||body.message||body.output;
+if(!resposta)throw new Error(body.error||'Resposta vazia');
+adicionarMensagemIA(resposta,'bot');}catch(err){console.error('Assistente Ambiental:',err);$('aiErro').textContent=err?.message||'Não foi possível falar com o Assistente agora. Verifique a configuração da IA no Supabase.';$('aiErro').style.display='block';}finally{btn.disabled=false;btn.textContent='Enviar 🚀'}};
 
 render();
 
